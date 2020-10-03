@@ -1,0 +1,93 @@
+<mat-card class="example-card">
+  <div align="center">
+    <mat-card-title>Welcome</mat-card-title>
+  </div>
+  <mat-card-content>
+    <form *ngIf="!isSuccessful"
+          [formGroup]="registrationForm"
+          name="registrationForm"
+          (ngSubmit)="f.form.valid && onSubmit()"
+          #f="ngForm"
+          novalidate>
+      <mat-form-field>
+        <mat-label for="username">Name</mat-label>
+        <input matInput
+               [formControl]="userName"
+               name="username">
+        <mat-error *ngIf="userName.errors?.required">Field is required'</mat-error>
+        <mat-error *ngIf="userName.errors?.pattern">Only letters allowed</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="username">Lastname</mat-label>
+        <input matInput
+               [formControl]="userLastName"
+               name="username">
+        <mat-error *ngIf="userLastName.errors?.required">Field is required'</mat-error>
+        <mat-error *ngIf="userLastName.errors?.pattern">Only letters allowed</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="username">Nickname</mat-label>
+        <input matInput
+               [formControl]="userNickName"
+               name="username">
+        <mat-error *ngIf="userNickName.errors?.required">Field is required'</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="username">Email</mat-label>
+        <input matInput
+               [formControl]="userEmail"
+               name="email">
+        <mat-hint  *ngIf="userEmail.errors" class="mat-hint px-5 ">Should be like example@com</mat-hint>
+        <mat-error *ngIf="userEmail.errors?.email">Should be like 'example' + '@' + 'com'</mat-error>
+        <mat-error *ngIf="userEmail.errors?.required">Field is required'</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="password" >Password</mat-label>
+        <input matInput
+               [type]="hide ? 'password' : 'text'"
+               [formControl]="userPassword"
+               name="password">
+        <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="userPassword.errors?.required">Field is required'</mat-error>
+        <mat-error *ngIf="userPassword.errors?.pattern">At least one capital, one small and one digit should be present</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="passwordConfirm" >Confirm Password</mat-label>
+        <input matInput
+               [type]="hide ? 'password' : 'text'"
+               [formControl]="userConfirmPassword"
+               name="passwordConfirm">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="userConfirmPassword.errors?.confirmedValidator">Password and Confirm Password must match.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="username">Age</mat-label>
+        <input matInput
+               type="number"
+               [formControl]="userAge"
+               name="username">
+        <mat-error *ngIf="userAge.errors?.required">Field is required'</mat-error>
+        <mat-error *ngIf="userAge.errors?.min">Not for kids</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Gender</mat-label>
+        <mat-select [formControl]="userSex"  required [(value)]="selected">
+          <mat-option value="Male">Male</mat-option>
+          <mat-option value="Female">Female</mat-option>
+        </mat-select>
+        <mat-error *ngIf="userAge.errors?.required">Field is required'</mat-error>
+      </mat-form-field>
+        <button mat-raised-button  color="primary" [disabled]="!f.form.valid" >Sign Up</button>
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Signup failed!<br />{{ errorMessage }}
+      </div>
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Your registration is successful!
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

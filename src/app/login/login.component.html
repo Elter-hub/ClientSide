@@ -1,0 +1,45 @@
+<mat-card class="example-card">
+  <div align="center">
+    <mat-card-title>Welcome</mat-card-title>
+  </div>
+  <mat-card-content>
+    <form *ngIf="!isLoggedIn"
+          [formGroup]="loginForm"
+          name="loginForm"
+          (ngSubmit)="f.form.valid && onSubmit()"
+          #f="ngForm"
+          novalidate>
+      <mat-form-field>
+        <mat-label for="username">Username</mat-label>
+        <input matInput
+               [formControl]="userName"
+               name="username">
+        <mat-error *ngIf="userName.errors?.required">Field is required'</mat-error>
+        <mat-error *ngIf="userName.errors?.pattern">Only letters allowed</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="username">Password</mat-label>
+        <input matInput
+               [formControl]="userPassword"
+               name="userPassword">
+        <mat-error *ngIf="userPassword.errors?.required">Field is required'</mat-error>
+        <mat-error *ngIf="userPassword.errors?.pattern">Only letters allowed</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button>Login</button>
+      <div class="form-group">
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && isLoginFailed"
+        >
+          Login failed: {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      Logged in as {{ roles }}.
+    </div>
+  </mat-card-content>
+</mat-card>
+
