@@ -7,6 +7,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
+import {EmailConfirmationComponent} from './email-confirmation/email-confirmation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'user', component: BoardUserComponent },
       { path: 'mod', component: BoardModeratorComponent },
       { path: 'admin', component: BoardAdminComponent },
+      { path: 'confirm', component: EmailConfirmationComponent },
     ]},
   { path: 'home', redirectTo: '', pathMatch: 'full' }
 ];

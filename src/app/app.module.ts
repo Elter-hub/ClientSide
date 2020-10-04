@@ -22,6 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
     BoardAdminComponent,
     BoardModeratorComponent,
     BoardUserComponent,
+    EmailConfirmationComponent,
   ],
   imports: [
     BrowserModule,

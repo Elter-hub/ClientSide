@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 const AUTH_API = 'http://localhost:8082/api/auth/';
 
@@ -12,14 +13,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(private http: HttpClient,
+              private activatedRoute: ActivatedRoute) { }
 
-  constructor(private http: HttpClient) { }
-
-  login(credentials): Observable<any> {
-    console.log(credentials);
+  login(form): Observable<any> {
+    console.log(form);
     return this.http.post(AUTH_API + 'signin', {
-      userName: credentials.userName,
-      password: credentials.userPassword
+      userName: form.userName,
+      password: form.userPassword
     }, httpOptions);
   }
 
@@ -33,5 +34,12 @@ export class AuthService {
       userNickName: form.value.userNickName,
       sex: form.value.userSex
     }, httpOptions);
+  }
+
+  confirmEmail(emailConfirmationToken: string) {
+      return this.http.post(AUTH_API + 'confirm',
+        {
+          requestParam: emailConfirmationToken
+        }, httpOptions)
   }
 }

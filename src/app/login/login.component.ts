@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {TokenStorageService} from '../services/token-storage.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   loginForm: FormGroup;
+
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,

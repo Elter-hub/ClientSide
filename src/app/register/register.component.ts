@@ -52,7 +52,6 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-
   // Getters for form
   get userName() {
     return this.registrationForm.get('userName');
