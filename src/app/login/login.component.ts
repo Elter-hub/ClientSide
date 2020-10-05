@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      userName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)]],
-      userPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
+      userEmail: ['', [Validators.required, /*Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)*/]],
+      userPassword: ['', [Validators.required, /*Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')*/]],
     });
 
     if (this.tokenStorage.getToken()) {
@@ -60,7 +60,9 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('userPassword');
   }
 
-  get userName() {
-    return this.loginForm.get('userName');
+  get userEmail() {
+    return this.loginForm.get('userEmail');
   }
+
+
 }

@@ -32,8 +32,8 @@ export class RegisterComponent implements OnInit {
       }, {
         validator: ConfirmedValidator('userPassword', 'userConfirmPassword')
       }),
-      userAge: ['', [Validators.min(18), Validators.required]],
-      userSex: [this.selected, Validators.required]
+      userAge: ['', [/*Validators.min(18), Validators.required*/]],
+      userSex: [/*this.selected, Validators.required*/]
     })
   }
 

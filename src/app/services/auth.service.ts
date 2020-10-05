@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 
-const AUTH_API = 'http://localhost:8082/api/auth/';
+const AUTH_API = 'http://localhost:8082/api/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,14 +18,16 @@ export class AuthService {
 
   login(form): Observable<any> {
     console.log(form);
-    return this.http.post(AUTH_API + 'signin', {
-      userName: form.userName,
+    console.log(form.userEmail);
+    console.log(form.userPassword);
+    return this.http.post(AUTH_API + 'auth/signin', {
+      email: form.userEmail,
       password: form.userPassword
     }, httpOptions);
   }
 
   register(form): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
+    return this.http.post(AUTH_API + 'auth/signup', {
       userName: form.value.userName,
       email: form.value.userEmail,
       password: form.value.matcher.userPassword,
@@ -37,9 +39,26 @@ export class AuthService {
   }
 
   confirmEmail(emailConfirmationToken: string) {
-      return this.http.post(AUTH_API + 'confirm',
+      return this.http.post(AUTH_API + 'auth/confirm',
         {
           requestParam: emailConfirmationToken
         }, httpOptions)
+  }
+
+  forgotPassword(email: string) {
+    console.log(AUTH_API + 'forgot-password');
+    return this.http.post(AUTH_API + 'forgot-password', {
+      email: email
+    }, httpOptions)
+  }
+
+  changePassword(password: string, tokenForRecoveringPassword: string){
+    console.log(AUTH_API + 'reset-password');
+    console.log('password ' + password);
+    console.log('token ' + tokenForRecoveringPassword);
+    return this.http.post(AUTH_API + 'reset-password' , {
+      password: password,
+      tokenForRecoveringPassword: tokenForRecoveringPassword
+    }, httpOptions)
   }
 }
