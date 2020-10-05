@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './demo/modules/auth/components/home/home.component';
 import {BoardAdminComponent} from './board-admin/board-admin.component';
 import {BoardUserComponent} from './board-user/board-user.component';
-import {ProfileComponent} from './profile/profile.component';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
+import {ProfileComponent} from './demo/modules/auth/components/profile/profile.component';
+import {LoginComponent} from './demo/modules/auth/components/login/login.component';
+import {RegisterComponent} from './demo/modules/auth/components/register/register.component';
 import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
-import {EmailConfirmationComponent} from './email-confirmation/email-confirmation.component';
-import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
+import {EmailConfirmationComponent} from './demo/modules/auth/components/email-confirmation/email-confirmation.component';
+import {ForgotPasswordComponent} from './demo/modules/auth/components/forgot-password/forgot-password.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 
 const routes: Routes = [

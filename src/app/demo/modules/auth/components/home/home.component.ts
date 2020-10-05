@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../services/user.service';
+import {UserService} from '../../services/user.service';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
-import {TokenStorageService} from '../services/token-storage.service';
+import {TokenStorageService} from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-home',
