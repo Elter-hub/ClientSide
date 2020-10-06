@@ -13,6 +13,7 @@ export class ChangePasswordComponent implements OnInit {
   passwordForm: FormGroup;
   hide =  false;
   tokenForRecoveringPassword: string;
+  emailForRecoveringPassword: string;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -38,9 +39,10 @@ export class ChangePasswordComponent implements OnInit {
 
 
   onSubmit(value: any) {
-    console.log(value.userPassword);
-    this.activatedRoute.queryParams.subscribe(params => this.tokenForRecoveringPassword = params.token)
-    console.log(this.tokenForRecoveringPassword);
-    this.authService.changePassword(value.userPassword, this.tokenForRecoveringPassword).subscribe(x => console.log(x))
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.tokenForRecoveringPassword = params.token
+      this.emailForRecoveringPassword = params.email
+    })
+    this.authService.changePassword(value.userPassword, this.tokenForRecoveringPassword, this.emailForRecoveringPassword).subscribe(x => console.log(x))
   }
 }

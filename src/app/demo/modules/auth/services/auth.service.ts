@@ -39,26 +39,28 @@ export class AuthService {
   }
 
   confirmEmail(emailConfirmationToken: string) {
+    console.log(emailConfirmationToken);
       return this.http.post(AUTH_API + 'auth/confirm',
         {
-          requestParam: emailConfirmationToken
+          emailConfirmationToken: emailConfirmationToken
         }, httpOptions)
   }
 
   forgotPassword(email: string) {
     console.log(AUTH_API + 'forgot-password');
     return this.http.post(AUTH_API + 'forgot-password', {
-      email: email
+      emailForRecoveringPassword: email
     }, httpOptions)
   }
 
-  changePassword(password: string, tokenForRecoveringPassword: string){
+  changePassword(password: string, tokenForRecoveringPassword: string, emailForRecoveringPassword: string){
     console.log(AUTH_API + 'reset-password');
     console.log('password ' + password);
     console.log('token ' + tokenForRecoveringPassword);
     return this.http.post(AUTH_API + 'reset-password' , {
       password: password,
-      tokenForRecoveringPassword: tokenForRecoveringPassword
+      tokenForRecoveringPassword: tokenForRecoveringPassword,
+      emailForRecoveringPassword: emailForRecoveringPassword
     }, httpOptions)
   }
 }
