@@ -31,21 +31,21 @@ export class ChangePasswordComponent implements OnInit {
     })
   }
 
+  onSubmit(value: any) {
+    console.log(this.tokenStorageService.getUser());
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.tokenForRecoveringPassword = params.token
+      this.emailForRecoveringPassword = params.email
+    })
+    this.authService.changePassword(value.userPassword, this.tokenForRecoveringPassword, this.emailForRecoveringPassword)
+      .subscribe(x => console.log(x))
+  }
+
   get newPassword() {
     return this.passwordForm.get('userPassword')
   }
 
   get userConfirmNewPassword() {
     return this.passwordForm.get('userConfirmNewPassword')
-  }
-
-  onSubmit(value: any) {
-    console.log(this.tokenStorageService.getUser());
-    this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params);
-      this.tokenForRecoveringPassword = params.token
-      this.emailForRecoveringPassword = params.email
-    })
-    this.authService.changePassword(value.userPassword, this.tokenForRecoveringPassword, this.emailForRecoveringPassword).subscribe(x => console.log(x))
   }
 }

@@ -32,9 +32,8 @@ export class BoardUserComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.user);
-    console.log(this.form.value);
-    this.authService.userChangePassword(this.user.userEmail, this.form.value.userOldPassword).subscribe(data => console.log(data))
+    this.authService.userChangePassword(this.user.userEmail, this.form.value.userOldPassword)
+      .subscribe(data => console.log(data))
   }
 
   showOptions() {
@@ -47,10 +46,5 @@ export class BoardUserComponent implements OnInit {
 
   get userEmail() {
     return this.form.get('userEmail');
-  }
-
-
-  showToken() {
-    console.log(this.token.getToken());
   }
 }

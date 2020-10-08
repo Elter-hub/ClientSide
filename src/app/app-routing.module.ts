@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'admin', component: BoardAdminComponent },
       { path: 'confirm', component: EmailConfirmationComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
-      { path: 'change-password', component: ChangePasswordComponent}]}, //when user Unauthorized and request for recover
+      { path: 'change-password', component: ChangePasswordComponent}]},
   { path: 'home', redirectTo: '', pathMatch: 'full' }
 ];
 

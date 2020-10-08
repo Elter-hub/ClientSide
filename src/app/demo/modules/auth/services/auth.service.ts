@@ -17,9 +17,6 @@ export class AuthService {
               private activatedRoute: ActivatedRoute) { }
 
   login(form): Observable<any> {
-    console.log(form);
-    console.log(form.userEmail);
-    console.log(form.userPassword);
     return this.http.post(AUTH_API + 'auth/signin', {
       email: form.userEmail,
       password: form.userPassword
@@ -54,17 +51,16 @@ export class AuthService {
   }
 
   changePassword(password: string, tokenForRecoveringPassword: string, emailForRecoveringPassword: string){
-    console.log(AUTH_API + 'reset-password');
-    console.log('password ' + password);
-    console.log('token ' + tokenForRecoveringPassword);
+    console.log('🧏');
     return this.http.post(AUTH_API + 'reset-password' , {
       password: password,
       tokenForRecoveringPassword: tokenForRecoveringPassword,
       emailForRecoveringPassword: emailForRecoveringPassword
     }, httpOptions)
   }
-
+  //Cause it should also validate old password
   userChangePassword(userEmail: string, userOldPassword: string) {
+    console.log('😠');
     return this.http.post('http://localhost:8082/user/change-password' , {
       emailForRecoveringPassword: userEmail,
       password: userOldPassword,

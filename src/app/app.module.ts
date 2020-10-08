@@ -28,7 +28,6 @@ import { ChangePasswordComponent } from './demo/modules/auth/components/change-p
 import { LoadingSpinnerComponent } from './demo/modules/shared/loading-spinner/loading-spinner.component';
 import {SocialLoginModule} from 'angularx-social-login';
 import {AuthInterceptorService} from './auth-interceptor.service';
-import {UserConfirmPasswordChangeComponent} from './demo/modules/auth/components/user-confirm-password-change/user-confirm-password-change.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +43,6 @@ import {UserConfirmPasswordChangeComponent} from './demo/modules/auth/components
     ForgotPasswordComponent,
     ChangePasswordComponent,
     LoadingSpinnerComponent,
-    UserConfirmPasswordChangeComponent
   ],
   imports: [
     BrowserModule,
