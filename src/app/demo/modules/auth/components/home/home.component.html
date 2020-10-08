@@ -31,7 +31,7 @@
           <button mat-button color="accent" routerLink="/login">Login</button>
         </mat-nav-list>
         <mat-nav-list *ngIf="isLoggedIn">
-          <button mat-button color="accent" routerLink="/profile">{{ username }}</button>
+          <button mat-button color="accent" routerLink="/profile">{{ userName }}®</button>
           <button mat-button color="warn" (click)="logout()">Logout</button>
         </mat-nav-list>
       </mat-toolbar>
@@ -40,3 +40,4 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<app-loading-spinner></app-loading-spinner>

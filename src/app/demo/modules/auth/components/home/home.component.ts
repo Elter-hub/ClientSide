@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
-  username: string;
+  userName: string;
   content: string;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
       this.roles = user.roles;
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-      this.username = user.username;
+      this.userName = user.userName;
     }
 
     this.userService.getPublicContent().subscribe(

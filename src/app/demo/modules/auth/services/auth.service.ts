@@ -63,4 +63,15 @@ export class AuthService {
       emailForRecoveringPassword: emailForRecoveringPassword
     }, httpOptions)
   }
+
+  userChangePassword(userEmail: string, userOldPassword: string) {
+    return this.http.post('http://localhost:8082/user/change-password' , {
+      emailForRecoveringPassword: userEmail,
+      password: userOldPassword,
+    }, httpOptions)
+  }
+
+  gmailRegister() {
+
+  }
 }

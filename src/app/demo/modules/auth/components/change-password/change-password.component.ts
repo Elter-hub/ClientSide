@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ConfirmedValidator} from '../demo/app/helpers/confirmed.validator';
+import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {ActivatedRoute} from '@angular/router';
-import {AuthService} from '../demo/modules/auth/services/auth.service';
+import {AuthService} from '../../services/auth.service';
+import {TokenStorageService} from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-change-password',
@@ -18,6 +19,7 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private tokenStorageService: TokenStorageService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(  ): void {
@@ -37,9 +39,10 @@ export class ChangePasswordComponent implements OnInit {
     return this.passwordForm.get('userConfirmNewPassword')
   }
 
-
   onSubmit(value: any) {
+    console.log(this.tokenStorageService.getUser());
     this.activatedRoute.queryParams.subscribe(params => {
+      console.log(params);
       this.tokenForRecoveringPassword = params.token
       this.emailForRecoveringPassword = params.email
     })

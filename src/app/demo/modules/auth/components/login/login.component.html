@@ -26,7 +26,7 @@
         <mat-error *ngIf="userPassword.errors?.pattern">Only letters allowed</mat-error>
       </mat-form-field>
 
-      <button mat-raised-button>Login</button>
+      <button mat-raised-button color="primary">Login</button>
       <div class="form-group">
         <div
           class="alert alert-danger"
@@ -40,7 +40,7 @@
     <div class="alert alert-success" *ngIf="isLoggedIn">
       Logged in as {{ roles }}.
     </div>
-    <button mat-stroked-button routerLink="/forgot-password">Forgot your password?</button>
+    <button mat-stroked-button routerLink="/forgot-password" color="accent">Forgot your password?</button>
   </mat-card-content>
 </mat-card>
 

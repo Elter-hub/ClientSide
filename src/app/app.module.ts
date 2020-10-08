@@ -7,11 +7,11 @@ import { LoginComponent } from './demo/modules/auth/components/login/login.compo
 import { RegisterComponent } from './demo/modules/auth/components/register/register.component';
 import { HomeComponent } from './demo/modules/auth/components/home/home.component';
 import { ProfileComponent } from './demo/modules/auth/components/profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
-import { BoardUserComponent } from './board-user/board-user.component';
+import { BoardAdminComponent } from './demo/modules/auth/components/board-admin/board-admin.component';
+import { BoardModeratorComponent } from './demo/modules/auth/components/board-moderator/board-moderator.component';
+import { BoardUserComponent } from './demo/modules/auth/components/board-user/board-user.component';
 import { ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -24,7 +24,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { EmailConfirmationComponent } from './demo/modules/auth/components/email-confirmation/email-confirmation.component';
 import { ForgotPasswordComponent } from './demo/modules/auth/components/forgot-password/forgot-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangePasswordComponent } from './demo/modules/auth/components/change-password/change-password.component';
+import { LoadingSpinnerComponent } from './demo/modules/shared/loading-spinner/loading-spinner.component';
+import {SocialLoginModule} from 'angularx-social-login';
+import {AuthInterceptorService} from './auth-interceptor.service';
+import {UserConfirmPasswordChangeComponent} from './demo/modules/auth/components/user-confirm-password-change/user-confirm-password-change.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     EmailConfirmationComponent,
     ForgotPasswordComponent,
     ChangePasswordComponent,
+    LoadingSpinnerComponent,
+    UserConfirmPasswordChangeComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +60,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

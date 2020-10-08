@@ -1,0 +1,10 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-card {
+  box-shadow: 0 4px 8px 0 rgb(123, 31, 162), 0 6px 20px 0 rgb(123, 31, 162);
+  width: 50%;
+  margin: 50px auto;
+}

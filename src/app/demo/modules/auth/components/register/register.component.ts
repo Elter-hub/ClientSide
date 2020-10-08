@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
   registrationForm: FormGroup;
   selected = '';
+  showSpinner = false;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder) { }
@@ -38,15 +39,14 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showSpinner = true;
     this.authService.register(this.registrationForm).subscribe(
       data => {
-        console.log('accepted' + this.registrationForm.value);
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.showSpinner = false;
       },
       err => {
-        console.log(this.registrationForm.value);
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
       }
