@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
 import {TokenStorageService} from '../../services/token-storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService,
               private userService: UserService,
+              private router: Router,
               private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
@@ -50,6 +52,6 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    this.router.navigate(['']).then(r => window.location.reload());
   }
 }

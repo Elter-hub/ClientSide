@@ -6,6 +6,8 @@ import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {User} from '../../models/UserModel';
 import {AuthService} from '../../services/auth.service';
 import {log} from 'util';
+import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-board-user',
@@ -21,6 +23,7 @@ export class BoardUserComponent implements OnInit {
 
   constructor(private token: TokenStorageService,
               private authService: AuthService,
+              private dialog: MatDialog,
               private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -34,6 +37,17 @@ export class BoardUserComponent implements OnInit {
   onSubmit() {
     this.authService.userChangePassword(this.user.userEmail, this.form.value.userOldPassword)
       .subscribe(data => console.log(data))
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogConfirmEmailComponent, {
+      height: '400px',
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   showOptions() {
