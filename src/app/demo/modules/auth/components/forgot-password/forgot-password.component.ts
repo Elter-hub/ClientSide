@@ -14,6 +14,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class ForgotPasswordComponent implements OnInit {
   emailForm: FormGroup;
   hide = false;
+  emailDoesntExist = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -21,14 +22,16 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailForm = this.formBuilder.group({
-        userEmail: ['', [Validators.required, /*Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)*/]],
+        userEmail: ['', [Validators.required, /*Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)*/]], //TODO fix regex
       }
     );
   }
 
   onSubmit(value: any) {
-    this.authService.forgotPassword(value.userEmail).subscribe(l => console.log(l));
-    value.reset;
+    this.authService.forgotPassword(value.userEmail).subscribe(data => this.openDialog(),
+      error => {
+      this.emailDoesntExist = true;
+      });
   }
 
   openDialog() {
@@ -36,7 +39,6 @@ export class ForgotPasswordComponent implements OnInit {
       height: '400px',
       width: '600px',
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: Dialog is closed and redirect to home page`);
     });
@@ -46,7 +48,4 @@ export class ForgotPasswordComponent implements OnInit {
     return this.emailForm.get('userEmail');
   }
 
-  showDialog() {
-    this.openDialog();
-  }
 }

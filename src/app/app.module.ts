@@ -28,6 +28,8 @@ import { ChangePasswordComponent } from './demo/modules/auth/components/change-p
 import { LoadingSpinnerComponent } from './demo/modules/shared/loading-spinner/loading-spinner.component';
 import {SocialLoginModule} from 'angularx-social-login';
 import {AuthInterceptorService} from './auth-interceptor.service';
+import { DialogConfirmEmailComponent } from './demo/modules/shared/dialog-confirm-email/dialog-confirm-email.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import {AuthInterceptorService} from './auth-interceptor.service';
     ForgotPasswordComponent,
     ChangePasswordComponent,
     LoadingSpinnerComponent,
+    DialogConfirmEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,9 +62,12 @@ import {AuthInterceptorService} from './auth-interceptor.service';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatDialogModule
   ],
-  providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }  ],
+  providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+                {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  entryComponents: [DialogConfirmEmailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
