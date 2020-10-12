@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {MatDialog} from '@angular/material/dialog';
@@ -18,15 +18,15 @@ export class ChangePasswordComponent implements OnInit {
   tokenForRecoveringPassword: string;
   emailForRecoveringPassword: string;
   dialogVisibility = false;
+  showSuccess = false;
 
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private router: Router,
               private tokenStorageService: TokenStorageService,
               private activatedRoute: ActivatedRoute) {
   }
-
-
 
   get newPassword() {
     return this.passwordForm.get('userPassword');
@@ -46,13 +46,15 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(value: any) {
-    console.log(this.tokenStorageService.getUser());
     this.activatedRoute.queryParams.subscribe(params => {
       this.tokenForRecoveringPassword = params.token;
       this.emailForRecoveringPassword = params.email;
     });
     this.authService.changePassword(value.userPassword, this.tokenForRecoveringPassword, this.emailForRecoveringPassword)
-      .subscribe(x => console.log(x));
+      .subscribe(x => {
+        this.showSuccess = true;
+        setTimeout(() => this.router.navigate(['login']), 2000)
+      });
   }
 
   showDialog() {

@@ -40,7 +40,7 @@
     <div class="alert alert-success" *ngIf="isLoggedIn">
       Logged in as {{ roles }}.
     </div>
-    <button mat-stroked-button routerLink="/forgot-password" color="accent">Forgot your password?</button>
+    <button mat-stroked-button routerLink="/forgot-password"  *ngIf="!isLoggedIn" color="accent">Forgot your password?</button>
   </mat-card-content>
 </mat-card>
 

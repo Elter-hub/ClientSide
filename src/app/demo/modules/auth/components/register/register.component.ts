@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ export class RegisterComponent implements OnInit {
   showSpinner = false;
 
   constructor(private authService: AuthService,
+              private router: Router,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -45,13 +47,17 @@ export class RegisterComponent implements OnInit {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.showSpinner = false;
+        setTimeout(() => this.router.navigate(['']), 3000)
       },
       err => {
+        this.showSpinner = false;
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
+        console.log(err)
       }
     );
   }
+
   // Getters for form
   get userName() {
     return this.registrationForm.get('userName');

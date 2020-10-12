@@ -1,5 +1,6 @@
 .dialog {
   color: white;
   box-shadow: 0 4px 8px 0 rgb(123, 31, 162), 0 6px 20px 0 rgb(123, 31, 162);
+  padding: 20px;
 }
 

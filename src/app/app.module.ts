@@ -30,6 +30,8 @@ import {SocialLoginModule} from 'angularx-social-login';
 import {AuthInterceptorService} from './auth-interceptor.service';
 import { DialogConfirmEmailComponent } from './demo/modules/shared/dialog-confirm-email/dialog-confirm-email.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dia
     MatIconModule,
     MatListModule,
     SocialLoginModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule,
+    MatDividerModule
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
                 {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],

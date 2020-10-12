@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private router: Router,
               private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
@@ -42,17 +43,16 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+
+        setTimeout(() => {
+          this.router.navigate(['user']).then(() => window.location.reload());
+        }, 2000)
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     );
-  }
-
-  reloadPage() {
-    window.location.reload();
   }
 
   get userPassword() {

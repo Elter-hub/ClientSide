@@ -51,7 +51,6 @@ export class AuthService {
   }
 
   changePassword(password: string, tokenForRecoveringPassword: string, emailForRecoveringPassword: string){
-    console.log('🧏');
     return this.http.post(AUTH_API + 'reset-password' , {
       password: password,
       tokenForRecoveringPassword: tokenForRecoveringPassword,
@@ -60,14 +59,9 @@ export class AuthService {
   }
   //Cause it should also validate old password
   userChangePassword(userEmail: string, userOldPassword: string) {
-    console.log('😠');
     return this.http.post('http://localhost:8082/user/change-password' , {
       emailForRecoveringPassword: userEmail,
       password: userOldPassword,
     }, httpOptions)
-  }
-
-  gmailRegister() {
-
   }
 }

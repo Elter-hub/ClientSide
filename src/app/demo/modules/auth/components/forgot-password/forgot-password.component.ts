@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   emailForm: FormGroup;
   hide = false;
   emailDoesntExist = false;
+  showSpinner = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -28,16 +29,21 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit(value: any) {
-    this.authService.forgotPassword(value.userEmail).subscribe(data => this.openDialog(),
+    this.showSpinner = true;
+    this.authService.forgotPassword(value.userEmail).subscribe(data => {
+      this.showSpinner = false;
+      this.openDialog();
+      },
       error => {
-      this.emailDoesntExist = true;
+        this.showSpinner = false;
+        this.emailDoesntExist = true;
       });
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogConfirmEmailComponent, {
-      height: '400px',
-      width: '600px',
+      // height: '400px',
+      // width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: Dialog is closed and redirect to home page`);
