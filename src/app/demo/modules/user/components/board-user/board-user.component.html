@@ -1,0 +1,147 @@
+<div class="wrapper">
+  <mat-card class="shadowbox">
+    <mat-card-header>
+      <mat-list>
+        <mat-list-item>
+          <mat-card-title [ngStyle]="{color: '#69f0ae'}">
+            <h2>User info</h2>
+          </mat-card-title>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <br>
+        <mat-list-item>
+          <div
+            mat-card-avatar
+            [ngStyle]="{'background-image': 'url(' + user.imageUrl + ')', 'background-size': 'cover'}"
+            class="example-header-image"></div>
+          <mat-card-title>{{user.userName}} {{user.userLastName}}</mat-card-title>
+          <br>
+          <hr>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-header>
+    <img [src]="user.imageUrl" alt="avatar"
+         style="cursor: pointer" (click)="changeImg()">
+    <mat-card-content><br>Age: {{user.userAge}} <br>
+      Email 📧: {{user.userEmail}} <br>
+      NickName: {{user.userNickName}}</mat-card-content>
+    <button mat-icon-button color="accent" (click)="showOptions()">Options
+      <mat-icon>build</mat-icon>
+    </button>
+  </mat-card>
+  <div class="secondColumn">
+    <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+    <div *ngIf="show" style="padding-top: 40px">
+      <mat-card-header> In order to change your password please fill next form</mat-card-header>
+      <mat-card-content>
+
+        <form
+          [formGroup]="form"
+          name="registrationForm"
+          (ngSubmit)="f.form.valid && onSubmit()"
+          #f="ngForm"
+          novalidate>
+          <mat-form-field>
+            <mat-label for="password">Old Password</mat-label>
+            <input matInput
+                   [type]="hide ? 'password' : 'text'"
+                   [formControl]="userOldPassword"
+                   name="password">
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="userOldPassword.errors?.required">Field is required'</mat-error>
+            <mat-error *ngIf="userOldPassword.errors?.pattern">At least one capital, one small and one digit should be
+              present
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label for="password">Password</mat-label>
+            <input matInput
+                   [type]="hide ? 'password' : 'text'"
+                   [formControl]="userNewPassword"
+                   name="password">
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="userNewPassword.errors?.required">Field is required'</mat-error>
+            <mat-error *ngIf="userNewPassword.errors?.pattern">At least one capital, one small and one digit should be
+              present
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label for="passwordConfirm">Confirm Password</mat-label>
+            <input matInput
+                   [type]="hide ? 'password' : 'text'"
+                   [formControl]="userConfirmNewPassword"
+                   name="passwordConfirm">
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="userConfirmNewPassword.errors?.confirmedValidator">Password and Confirm Password must
+              match.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-error *ngIf="showWarn">{{error}}</mat-error>
+          <button type="submit" mat-raised-button>Change password!</button>
+        </form>
+
+        <br>
+      </mat-card-content>
+    </div>
+
+    <form *ngIf="showUrlForm"
+          class="example-form"
+          [formGroup]="changeImageUrlForm"
+          #form="ngForm"
+          (ngSubmit)="changeImgUrl(form.form.value, user.userEmail)"
+    >
+      <mat-label>Change Image</mat-label>
+      <mat-form-field class="example-full-width">
+        <mat-label>URL</mat-label>
+        <input matInput #message maxlength="256"
+               placeholder="http://image.com/image.png"
+               [formControl]="url"
+        >
+        <mat-error *ngIf="url.errors?.pattern">Should be valid URL!</mat-error>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary" [disabled]="!form.valid">Change</button>
+    </form>
+
+    <div *ngIf="showConfirmation">
+
+      <form
+        [formGroup]="formConfirm"
+        name="registrationForm"
+        (ngSubmit)="confirmPasswordChanges()"
+        #conf="ngForm"
+        novalidate>
+        <mat-form-field>
+          <mat-label for="password">Enter confirmation token</mat-label>
+          <input matInput
+                 [type]="hide ? 'password' : 'text'"
+                 [formControl]="confirmChanges"
+                 name="password">
+          <button mat-icon-button type="button" matSuffix (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="userOldPassword.errors?.required">Field is required'</mat-error>
+          <mat-error *ngIf="userOldPassword.errors?.pattern">At least one capital, one small and one digit should be
+            present
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Apply changes</button>
+      </form>
+    </div>
+    <br>
+    <h2 *ngIf="showSuccess" class="bg-success"> Password was changed!</h2>
+
+  </div>
+</div>

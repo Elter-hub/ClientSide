@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.showSpinner = true;
     this.authService.register(this.registrationForm).subscribe(
       data => {

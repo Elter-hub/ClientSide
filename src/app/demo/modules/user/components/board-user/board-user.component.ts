@@ -123,4 +123,7 @@ export class BoardUserComponent implements OnInit {
   public get confirmChanges() {
     return this.formConfirm.get('confirm')
   }
+
+
+
 }
