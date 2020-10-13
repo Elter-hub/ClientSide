@@ -16,6 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
   hide = false;
   emailDoesntExist = false;
   showSpinner = false;
+  tokenExist = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -23,7 +24,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailForm = this.formBuilder.group({
-        userEmail: ['', [Validators.required, /*Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)*/]], //TODO fix regex
+        userEmail: ['', [Validators.required]], //TODO fix regex
       }
     );
   }
@@ -35,9 +36,17 @@ export class ForgotPasswordComponent implements OnInit {
       this.openDialog();
       },
       error => {
+        if (error.error.message.startsWith('Email')){
+          this.emailDoesntExist = true;
+        }else {
+          this.tokenExist = true;
+        }
         this.showSpinner = false;
-        this.emailDoesntExist = true;
       });
+    setTimeout(() => {
+      this.tokenExist = false;
+      this.emailDoesntExist = false;
+    }, 3000)
   }
 
   openDialog() {

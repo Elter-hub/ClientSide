@@ -57,11 +57,5 @@ export class AuthService {
       emailForRecoveringPassword: emailForRecoveringPassword
     }, httpOptions)
   }
-  //Cause it should also validate old password
-  userChangePassword(userEmail: string, userOldPassword: string) {
-    return this.http.post('http://localhost:8082/user/change-password' , {
-      emailForRecoveringPassword: userEmail,
-      password: userOldPassword,
-    }, httpOptions)
-  }
+
 }

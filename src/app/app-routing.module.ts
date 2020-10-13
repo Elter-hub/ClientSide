@@ -10,6 +10,7 @@ import {BoardModeratorComponent} from './demo/modules/auth/components/board-mode
 import {EmailConfirmationComponent} from './demo/modules/auth/components/email-confirmation/email-confirmation.component';
 import {ForgotPasswordComponent} from './demo/modules/auth/components/forgot-password/forgot-password.component';
 import {ChangePasswordComponent} from './demo/modules/auth/components/change-password/change-password.component';
+import {UserChangePasswordConfirmationComponent} from './demo/modules/auth/components/user-change-password-confirmation/user-change-password-confirmation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'mod', component: BoardModeratorComponent },
       { path: 'admin', component: BoardAdminComponent },
       { path: 'confirm', component: EmailConfirmationComponent },
+      { path: 'user-change-password', component: UserChangePasswordConfirmationComponent},
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'change-password', component: ChangePasswordComponent}]},
   { path: 'home', redirectTo: '', pathMatch: 'full' }

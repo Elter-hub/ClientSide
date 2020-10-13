@@ -35,8 +35,8 @@ export class RegisterComponent implements OnInit {
       }, {
         validator: ConfirmedValidator('userPassword', 'userConfirmPassword')
       }),
-      userAge: ['', [/*Validators.min(18), Validators.required*/]],
-      userSex: [/*this.selected, Validators.required*/]
+      userAge: ['', [Validators.min(18), Validators.required]],
+      userSex: [this.selected, Validators.required]
     })
   }
 
@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit {
     this.showSpinner = true;
     this.authService.register(this.registrationForm).subscribe(
       data => {
+        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.showSpinner = false;
@@ -58,6 +59,8 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  // Getters for form
+  // Getters for form
   // Getters for form
   get userName() {
     return this.registrationForm.get('userName');

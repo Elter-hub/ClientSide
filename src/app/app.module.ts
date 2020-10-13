@@ -32,6 +32,7 @@ import { DialogConfirmEmailComponent } from './demo/modules/shared/dialog-confir
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
+import { UserChangePasswordConfirmationComponent } from './demo/modules/auth/components/user-change-password-confirmation/user-change-password-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatDividerModule} from '@angular/material/divider';
     ChangePasswordComponent,
     LoadingSpinnerComponent,
     DialogConfirmEmailComponent,
+    UserChangePasswordConfirmationComponent,
   ],
   imports: [
     BrowserModule,

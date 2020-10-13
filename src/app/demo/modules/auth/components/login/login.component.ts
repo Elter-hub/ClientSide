@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.loginForm.value).subscribe(
       data => {
+        console.log(data);
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
 
@@ -48,8 +49,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['user']).then(() => window.location.reload());
         }, 2000)
       },
-      err => {
-        this.errorMessage = err.error.message;
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
     );

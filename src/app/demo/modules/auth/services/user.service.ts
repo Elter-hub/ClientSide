@@ -21,6 +21,22 @@ export class UserService {
     }, httpOptions)
   }
 
+  //Cause it should also validate old password
+  userChangePassword(userEmail: string, oldPassword: string, newPassword: string) {
+    return this.http.post('http://localhost:8082/user/change-password' , {
+      userEmail: userEmail,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    }, httpOptions)
+  }
+
+  userConfirmPasswordChanges(email: string, emailConfirmationToken: string){
+    return this.http.post('http://localhost:8082/user/confirm-password', {
+      emailForRecoveringPassword: email,
+      tokenForRecoveringPassword: emailConfirmationToken
+    }, httpOptions)
+  }
+
   // getPublicContent(): Observable<any> {
   //   return this.http.get(API_URL + 'all', { responseType: 'text' });
   // }

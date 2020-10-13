@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {UserService} from '../../services/user.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {User} from '../../models/UserModel';
 import {AuthService} from '../../services/auth.service';
@@ -23,6 +23,10 @@ export class BoardUserComponent implements OnInit {
   showSpinner = false;
   changeImageUrlForm: FormGroup;
   showUrlForm = false;
+  showConfirmation = false;
+  formConfirm: FormGroup;
+  error: string;
+  showSuccess = false;
 
   constructor(private token: TokenStorageService,
               private authService: AuthService,
@@ -36,28 +40,37 @@ export class BoardUserComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       userOldPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
+      userNewPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
+      userConfirmNewPassword: ['',]
+    }, {
+      validator: ConfirmedValidator('userNewPassword', 'userConfirmNewPassword')
     });
 
     this.changeImageUrlForm = this.formBuilder.group({
       url: ['', [Validators.required, Validators.pattern('^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$')]]
     })
+
+    this.formConfirm = this.formBuilder.group({
+      confirm: ['', [Validators.required]]
+    })
   }
 
   onSubmit() {
     this.showSpinner = true;
-    this.authService.userChangePassword(this.user.userEmail, this.form.value.userOldPassword)
+    this.userService.userChangePassword(this.user.userEmail,
+                                        this.form.value.userOldPassword,
+                                        this.form.value.userNewPassword)
       .subscribe(data => {
           this.showSpinner = false;
           this.showWarn = false;
-          const dialogRef = this.dialog.open(DialogConfirmEmailComponent, {
-            // height: '400px',
-            // width: '600px',
-          });
+          this.showConfirmation = true;
+          const dialogRef = this.dialog.open(DialogConfirmEmailComponent);
           dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
+            console.log(result);
           });
         },
         error => {
+          this.error = error.error.message;
           this.showWarn = true;
           this.showSpinner = false;
         });
@@ -78,8 +91,25 @@ export class BoardUserComponent implements OnInit {
     });
   }
 
+  confirmPasswordChanges() {
+    this.userService.userConfirmPasswordChanges(this.user.userEmail, this.formConfirm.value.confirm)
+      .subscribe(data => this.showSuccess = true,
+        error1 => {
+          console.log(error1);
+        }
+    )
+  }
+
   get userOldPassword() {
     return this.form.get('userOldPassword');
+  }
+
+  get userNewPassword() {
+    return this.form.get('userNewPassword');
+  }
+
+  get userConfirmNewPassword() {
+    return this.form.get('userConfirmNewPassword');
   }
 
   get userEmail() {
@@ -89,6 +119,11 @@ export class BoardUserComponent implements OnInit {
   public get url() {
     return this.changeImageUrlForm.get('url');
   }
+
+  public get confirmChanges() {
+    return this.formConfirm.get('confirm')
+  }
+
 
 
 }
