@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {TokenStorageService} from '../../services/token-storage.service';
-import {UserService} from '../../services/user.service';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
-import {User} from '../../models/UserModel';
-import {AuthService} from '../../services/auth.service';
-import {log} from 'util';
 import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
 import {MatDialog} from '@angular/material/dialog';
+import {User} from '../../../auth/models/UserModel';
+import {TokenStorageService} from '../../../auth/services/token-storage.service';
+import {AuthService} from '../../../auth/services/auth.service';
+import {UserService} from '../../../auth/services/user.service';
 
 @Component({
   selector: 'app-board-user',
@@ -93,11 +92,20 @@ export class BoardUserComponent implements OnInit {
 
   confirmPasswordChanges() {
     this.userService.userConfirmPasswordChanges(this.user.userEmail, this.formConfirm.value.confirm)
-      .subscribe(data => this.showSuccess = true,
+      .subscribe(data => {
+        this.showSuccess = true
+        this.formConfirm.reset();
+        this.form.reset();
+        },
         error1 => {
           console.log(error1);
         }
     )
+  }
+
+  showCart() {
+    this.user = this.token.getUser();
+    console.log(this.user.cart);
   }
 
   get userOldPassword() {

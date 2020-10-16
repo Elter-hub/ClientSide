@@ -1,3 +1,6 @@
+import {Item} from '../../content/model/item';
+import {Cart} from '../../content/model/cart';
+
 export interface User {
   userId: number;
   userName: string;
@@ -7,4 +10,5 @@ export interface User {
   userAge: number;
   userSex: string;
   imageUrl: string;
+  cart: Cart;
 }

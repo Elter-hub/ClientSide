@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     });
 
     if (this.tokenStorage.getToken()) {
+      console.log(this.tokenStorage.getToken());
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(
       data => {
+        console.log(data);
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
@@ -49,7 +51,6 @@ export class LoginComponent implements OnInit {
         }, 2000);
       },
       error => {
-        console.log(error);
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }

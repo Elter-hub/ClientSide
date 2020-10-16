@@ -1,3 +1,6 @@
-#googleBtn {
-  width: 400px;
+.style {
+  position: absolute;
+  top: 1%;
+  right: 24%;
+  z-index: 100;
 }

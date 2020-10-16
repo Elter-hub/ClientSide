@@ -87,7 +87,7 @@
           </mat-form-field>
 
           <mat-error *ngIf="showWarn">{{error}}</mat-error>
-          <button type="submit" mat-raised-button>Change password!</button>
+          <button type="submit" color="accent" mat-raised-button>Change password!</button>
         </form>
 
         <br>
@@ -142,6 +142,9 @@
     </div>
     <br>
     <h2 *ngIf="showSuccess" class="bg-success"> Password was changed!</h2>
-
   </div>
+  <button mat-raised-button (click)="showCart()">Show cart</button>
+</div>
+
+<div>
 </div>

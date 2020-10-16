@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {TokenStorageService} from '../../services/token-storage.service';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
+import {AuthService} from '../../../auth/services/auth.service';
+import {TokenStorageService} from '../../../auth/services/token-storage.service';
 
 @Component({
   selector: 'app-change-password',

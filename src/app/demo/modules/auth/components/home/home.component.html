@@ -9,8 +9,9 @@
       <a mat-list-item *ngIf="showAdminBoard" routerLink="/admin">Admin BoardLink 2</a>
       <a mat-list-item *ngIf="showModeratorBoard" routerLink="/mod">Moderator Board</a>
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/user">User</a>
+      <a mat-list-item *ngIf="isLoggedIn" routerLink="/content">Content</a>
+      <a mat-list-item *ngIf="showAdminBoard" routerLink="/content/add-item">Add Content</a>
     </mat-nav-list>
-
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="spaceBetween">
@@ -31,12 +32,15 @@
           <button mat-button color="accent" routerLink="/login">Login</button>
         </mat-nav-list>
         <mat-nav-list *ngIf="isLoggedIn">
+          <button mat-icon-button color="accent" routerLink="user/cart">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
           <button mat-button color="accent" routerLink="/profile">{{ userName }}®</button>
           <button mat-button color="warn" (click)="logout()">Logout</button>
         </mat-nav-list>
       </mat-toolbar>
     </div>
     <!-- Add Content Here -->
-    <router-outlet></router-outlet>
+    <router-outlet ></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

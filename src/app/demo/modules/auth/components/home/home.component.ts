@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   showModeratorBoard = false;
   userName: string;
   content: string;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -45,4 +46,6 @@ export class HomeComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.router.navigate(['']).then(r => window.location.reload());
   }
+
+
 }
