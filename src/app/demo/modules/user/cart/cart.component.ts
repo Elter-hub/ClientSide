@@ -25,8 +25,9 @@ export class CartComponent implements OnInit {
     this.userService.currentUser.subscribe(user => {
       this.user = user;
       this.items = user.cart.items;
+      this.cart = user.cart;
       this.quantities = user.cart.quantities;
-      this.items.forEach(sum =>this.sum += sum.price)
+      this.items?.forEach(sum =>this.sum += sum.price)
     });
 
   }
