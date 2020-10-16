@@ -1,0 +1,9 @@
+<router-outlet></router-outlet>
+<div class="content">
+  <app-item *ngFor="let whiskey of whiskeys" [item]="whiskey"></app-item>
+  <app-item *ngFor="let liquor of liquors" [item]="liquor"></app-item>
+  <app-item *ngFor="let brandie of brandies" [item]="brandie"></app-item>
+  <app-item *ngFor="let rom of roms" [item]="rom"></app-item>
+  <app-item *ngFor="let vodka of vodkas" [item]="vodka"></app-item>
+  <app-item *ngFor="let absent of absents" [item]="absent"></app-item>
+</div>

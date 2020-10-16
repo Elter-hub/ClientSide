@@ -1,0 +1,15 @@
+<mat-card class="example-card" cdkDrag >
+  <mat-card-header>
+    <mat-card-title>{{item.itemName}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="item.itemImageUrl" alt="Photo of a ">
+  <mat-card-content>
+    <p>
+      {{item.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-content>{{item.price | currency:'UAH':'symbol-narrow'}}</mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button (click)="addToCart()">Add to cart</button>
+  </mat-card-actions>
+</mat-card>
