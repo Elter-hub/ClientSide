@@ -33,7 +33,7 @@ import {UserChangePasswordConfirmationComponent} from './demo/modules/user/compo
 import {ChangePasswordComponent} from './demo/modules/user/components/change-password/change-password.component';
 import {BoardUserComponent} from './demo/modules/user/components/board-user/board-user.component';
 import {ProfileComponent} from './demo/modules/user/components/profile/profile.component';
-import { CartComponent } from './demo/modules/user/cart/cart.component';
+import { CartComponent } from './demo/modules/user/components/cart/cart.component';
 
 @NgModule({
   declarations: [

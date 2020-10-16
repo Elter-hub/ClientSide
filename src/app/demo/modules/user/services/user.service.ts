@@ -7,13 +7,15 @@ import {User} from '../../auth/models/UserModel';
   providedIn: 'root'
 })
 export class UserService {
-  private user = new BehaviorSubject<User>(this.tokenStorage.getUser());
 
   constructor(private tokenStorage: TokenStorageService) { }
+
+  private user = new BehaviorSubject<User>(this.tokenStorage.getUser());
 
   currentUser = this.user.asObservable();
 
   changeUser(user: User): void {
     this.user.next(user);
+    this.tokenStorage.saveUser(user);
   }
 }
