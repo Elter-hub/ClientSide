@@ -1,0 +1,38 @@
+<div class="wrapper">
+<form
+      [formGroup]="cardForm"
+      name="loginForm"
+      (ngSubmit)="f.form.valid "
+      #f="ngForm"
+      novalidate>
+  <mat-form-field>
+    <mat-label for="cardNumber">Card Number</mat-label>
+    <input matInput
+           [formControl]="cardNumber"
+           name="cardNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="cardExpMonth">Card Expiration Month</mat-label>
+    <input matInput
+           [formControl]="cardExpMonth"
+           name="cardExpMonth">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="cardExpYear">Card Exp Year</mat-label>
+    <input matInput
+           [formControl]="cardExpYear"
+           name="cardExpYear">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="cardCvc">cardCvc</mat-label>
+    <input matInput
+           [formControl]="cardCvc"
+           name="cardCvc">
+  </mat-form-field>
+  <button mat-raised-button color="accent" type="submit" (click)="chargeCreditCard()" [mat-dialog-close]="true">Submit</button>
+</form>
+<button mat-icon-button color="warn" [mat-dialog-close]="true">
+  <mat-icon>clear</mat-icon>
+</button>
+</div>
+
