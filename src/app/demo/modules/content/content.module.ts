@@ -11,7 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { ItemComponent } from './item/item.component';
+import { ItemComponent } from './components/item/item.component';
 import {AllItemsComponent} from './components/all-items/all-items.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 

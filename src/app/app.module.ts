@@ -34,6 +34,7 @@ import {ChangePasswordComponent} from './demo/modules/user/components/change-pas
 import {BoardUserComponent} from './demo/modules/user/components/board-user/board-user.component';
 import {ProfileComponent} from './demo/modules/user/components/profile/profile.component';
 import { CartComponent } from './demo/modules/user/components/cart/cart.component';
+import {PaymentFormComponent} from './demo/modules/payment/components/payment-form/payment-form.component';
 
 @NgModule({
   declarations: [
@@ -71,11 +72,11 @@ import { CartComponent } from './demo/modules/user/components/cart/cart.componen
     SocialLoginModule,
     MatDialogModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
                 {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
-  entryComponents: [DialogConfirmEmailComponent],
+  entryComponents: [DialogConfirmEmailComponent, PaymentFormComponent],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -7,6 +7,9 @@ import {CartService} from '../../services/cart.service';
 import {UserService} from '../../services/user.service';
 import {AddItemToCartService} from '../../../content/services/add-item-to-cart.service';
 import {log} from 'util';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
+import {PaymentFormComponent} from '../../../payment/components/payment-form/payment-form.component';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +25,8 @@ export class CartComponent implements OnInit {
 
   constructor(private userService: UserService,
               private addItemToCart: AddItemToCartService,
-              private cartService: CartService) { }
+              private cartService: CartService,
+              private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     console.log("🥰");
@@ -69,5 +73,14 @@ export class CartComponent implements OnInit {
     this.quantities = this.user.cart.quantities;
     this.sum += this.user.cart.items[index].price;
     this.userService.changeUser(this.user);
+  }
+
+  showCardForm() {
+    const dialogRef = this.dialog.open(PaymentFormComponent, {
+      data: { amount: this.sum }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

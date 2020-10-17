@@ -24,6 +24,7 @@ const routes: Routes = [
       { path: 'user-change-password', component: UserChangePasswordConfirmationComponent},
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'change-password', component: ChangePasswordComponent},
+      {path: 'payment', loadChildren: () => import('./demo/modules/payment/payment.module').then(m => m.PaymentModule)},
       {path: 'content', loadChildren: () => import('./demo/modules/content/content.module').then(m => m.ContentModule)},
       {path: 'user', loadChildren: () => import('./demo/modules/user/user.module').then(m => m.UserModule)}
     ]},

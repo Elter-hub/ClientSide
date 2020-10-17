@@ -25,11 +25,12 @@
     </mat-card-actions>
   </mat-card>
 </div>
-
+<div *ngIf="items.length > 0">
 <div class="justify-content-center">
   <h3 class="sum">Total sum: {{sum}}</h3>
   <br>
 </div>
 <div class="justify-content-center">
-  <button mat-raised-button class="m-2 button" color="primary">BUY</button>
+  <button mat-raised-button class="m-2 button" color="primary" (click)="showCardForm()">BUY</button>
+</div>
 </div>

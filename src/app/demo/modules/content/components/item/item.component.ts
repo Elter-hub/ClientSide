@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Item} from '../model/item';
-import {TokenStorageService} from '../../auth/services/token-storage.service';
-import {User} from '../../auth/models/UserModel';
-import {AddItemToCartService} from '../services/add-item-to-cart.service';
-import {Cart} from '../model/cart';
-import {UserService} from '../../user/services/user.service';
+import {Item} from '../../model/item';
+import {TokenStorageService} from '../../../auth/services/token-storage.service';
+import {User} from '../../../auth/models/UserModel';
+import {AddItemToCartService} from '../../services/add-item-to-cart.service';
+import {Cart} from '../../model/cart';
+import {UserService} from '../../../user/services/user.service';
 
 @Component({
   selector: 'app-item',
