@@ -11,18 +11,25 @@
     </mat-card-header>
     <img mat-card-image [src]="item.itemImageUrl" alt="Photo of a product ">
     <mat-card-content>
-      {{quantities[i]}} pieces
-      <br>
-      {{item.description | slice: 20}}
+      {{item.description | slice: 0:20}}...
+      {{item.price | currency:'UAH':'symbol-narrow'}}
     </mat-card-content>
-    <mat-card-footer>{{item.price | currency:'UAH':'symbol-narrow'}}
-    </mat-card-footer>
+    <mat-card-actions>
+      <button mat-icon-button (click)="decrease(i)">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <mat-label>{{quantities[i]}} pieces</mat-label>
+      <button mat-icon-button (click)="increase(i)">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </mat-card-actions>
   </mat-card>
-
 </div>
-<h3> Total sum</h3>
-<p>{{sum}}</p>
-<br>
+
+<div class="justify-content-center">
+  <h3 class="sum">Total sum: {{sum}}</h3>
+  <br>
+</div>
 <div class="justify-content-center">
   <button mat-raised-button class="m-2 button" color="primary">BUY</button>
 </div>

@@ -6,8 +6,6 @@
     <mat-toolbar>Client Side</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="home">Home</a>
-      <a mat-list-item *ngIf="showAdminBoard" routerLink="/admin">Admin BoardLink 2</a>
-      <a mat-list-item *ngIf="showModeratorBoard" routerLink="/mod">Moderator Board</a>
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/user">User</a>
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/content">Content</a>
       <a mat-list-item *ngIf="showAdminBoard" routerLink="/content/add-item">Add Content</a>

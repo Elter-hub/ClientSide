@@ -5,6 +5,8 @@ import {Cart} from '../../../content/model/cart';
 import {Item} from '../../../content/model/item';
 import {CartService} from '../../services/cart.service';
 import {UserService} from '../../services/user.service';
+import {AddItemToCartService} from '../../../content/services/add-item-to-cart.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-cart',
@@ -17,23 +19,23 @@ export class CartComponent implements OnInit {
   items: Item[];
   quantities: number[];
   sum = 0;
-  index = 0;
 
   constructor(private userService: UserService,
+              private addItemToCart: AddItemToCartService,
               private cartService: CartService) { }
 
   ngOnInit(): void {
+    console.log("🥰");
     this.userService.currentUser.subscribe(user => {
-      console.log(user.cart);
       this.user = user;
-      this.items = user.cart.items;
-      this.cart = user.cart;
-      this.quantities = user.cart.quantities;
-      this.items?.forEach(sum =>{
-        this.sum += sum.price * this.quantities[this.index];
-        this.index++;
-      })
+      this.items = this.user.cart.items;
+      this.cart = this.user.cart;
+      this.quantities = this.user.cart.quantities;
     });
+
+    for (let i = 0; i < this.items.length; i++) {
+      this.sum += this.items[i].price * this.quantities[i];
+    }
     this.userService.changeUser(this.user); // fdsfawfe
   }
 
@@ -41,14 +43,31 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(this.user.userEmail, itemId).subscribe(data => {
       this.user.cart = data;
       console.log(data);
-      this.quantities = this.user.cart.quantities;
-      this.items.forEach(sum => {
-        console.log(sum.price);
-        console.log(this.quantities[this.index]);
-        this.sum -= sum.price * this.quantities[this.index];
-        this.index--;
-        this.userService.changeUser(this.user);
-      })
-    })
+      this.userService.changeUser(this.user);
+      });
+    for (let i = 0; i < this.user.cart.items.length; i++){
+      if (this.user.cart.items[i].itemId == itemId){
+        this.sum -= this.items[i].price * this.quantities[i];
+      }
+    }
+    this.quantities = this.user.cart.quantities;
+  }
+
+  decrease(index: number) {
+    this.user.cart.quantities[index]--;
+    if (this.user.cart.quantities[index] === 0){
+      this.removeFromCart(this.user.cart.items[index].itemId)
+    }
+    this.quantities = this.user.cart.quantities;
+    this.sum -= this.user.cart.items[index].price;
+    this.userService.changeUser(this.user);
+  }
+
+  increase(index: number) {
+    this.user.cart.quantities[index]++;
+    this.addItemToCart.addToCart(this.user.userEmail, this.user.cart.items[index].itemId).subscribe(x => console.log(x))
+    this.quantities = this.user.cart.quantities;
+    this.sum += this.user.cart.items[index].price;
+    this.userService.changeUser(this.user);
   }
 }
