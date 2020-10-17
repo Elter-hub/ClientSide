@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private tokenStorage: TokenStorageService) { }
 
-  private user = new BehaviorSubject<User>(this.tokenStorage.getUser());
+  user = new BehaviorSubject<User>(this.tokenStorage.getUser());
 
   currentUser = this.user.asObservable();
 

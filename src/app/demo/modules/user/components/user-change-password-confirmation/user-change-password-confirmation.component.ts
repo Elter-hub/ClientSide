@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../../auth/services/user.service';
+import {UserActionService} from '../../../auth/services/user-action.service';
 
 @Component({
   selector: 'app-user-change-password-confirmation',
@@ -14,7 +14,7 @@ export class UserChangePasswordConfirmationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserActionService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../services/user.service';
+import {UserActionService} from '../../services/user-action.service';
 
 @Component({
   selector: 'app-board-admin',
@@ -10,7 +10,7 @@ export class BoardAdminComponent implements OnInit {
 
   content = '';
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserActionService) { }
 
   ngOnInit() {
     this.userService.getAdminBoard().subscribe(

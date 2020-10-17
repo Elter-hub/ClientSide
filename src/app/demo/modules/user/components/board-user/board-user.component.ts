@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {User} from '../../../auth/models/UserModel';
 import {TokenStorageService} from '../../../auth/services/token-storage.service';
 import {AuthService} from '../../../auth/services/auth.service';
-import {UserService} from '../../../auth/services/user.service';
+import {UserActionService} from '../../../auth/services/user-action.service';
 
 @Component({
   selector: 'app-board-user',
@@ -29,7 +29,7 @@ export class BoardUserComponent implements OnInit {
 
   constructor(private token: TokenStorageService,
               private authService: AuthService,
-              private userService: UserService,
+              private userService: UserActionService,
               private dialog: MatDialog,
               private formBuilder: FormBuilder) {
   }
