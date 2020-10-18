@@ -19,7 +19,6 @@ export class PaymentFormComponent implements OnInit {
               private userService: UserService,
               @Inject(MAT_DIALOG_DATA) private data: any) { }
 
-
   ngOnInit(): void {
     this.cardForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required]],
@@ -30,25 +29,25 @@ export class PaymentFormComponent implements OnInit {
   }
 
   chargeCreditCard() {
-    let form = document.getElementsByTagName("form")[0];
     (<any>window).Stripe.card.createToken({
-      number: form.cardNumber.value,
-      exp_month: form.cardExpMonth.value,
-      exp_year: form.cardExpYear.value,
-      cvc: form.cardCvc.value
+      number: this.cardNumber.value,
+      exp_month: this.cardExpMonth.value,
+      exp_year: this.cardExpYear.value,
+      cvc: this.cardCvc.value
     }, (status: number, response: any) => {
       if (status === 200) {
         let token = response.id;
-        this.chargeCard(token);
+        this.chargeCard(token, this.data.email);
       } else {
         console.log(response.error);
       }
     });
   }
 
-  chargeCard(token: string) {
-    const headers = new HttpHeaders({'token': token, 'amount': this.data.amount.toString()});
-    this.http.post('http://localhost:8082/payment/charge', {}, {headers: headers})
+  chargeCard(token: string, email: string) {
+    const headers = new HttpHeaders({'token': token, 'amount': this.data.amount.toString(), email: email});
+    this.http.post('http://localhost:8082/payment/charge', {},
+     {headers: headers})
       .subscribe(resp => {
         console.log(resp);
         this.userService.currentUser.subscribe(user => this.user = user);

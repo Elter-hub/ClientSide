@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < this.items.length; i++) {
       this.sum += this.items[i].price * this.quantities[i];
     }
-    this.userService.changeUser(this.user); // fdsfawfe
+    this.userService.changeUser(this.user);
   }
 
   removeFromCart(itemId: number) {
@@ -76,8 +76,13 @@ export class CartComponent implements OnInit {
   }
 
   showCardForm() {
-    const dialogRef = this.dialog.open(PaymentFormComponent, {
-      data: { amount: this.sum }
+    this.userService.currentUser.subscribe(user => {
+      this.user = user;
+    });
+      const dialogRef = this.dialog.open(PaymentFormComponent, {
+      data: { amount: this.sum,
+              email: this.user.userEmail
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
