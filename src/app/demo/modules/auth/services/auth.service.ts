@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpHandler, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from './token-storage.service';
 import jwt_decode from 'jwt-decode';
+import {switchMap, tap} from 'rxjs/operators';
+import {Tokens} from '../models/Tokens';
 
 const AUTH_API = 'http://localhost:8082/api/';
 
@@ -15,6 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
+
   constructor(private http: HttpClient,
               private tokenStorageService: TokenStorageService) { }
 
@@ -37,30 +40,13 @@ export class AuthService {
     }, httpOptions);
   }
 
-  getTokenExpirationDate(token: string): Date {
-    const decoded = jwt_decode(token);
-
-    if (decoded.exp === undefined) return null;
-
-    const date = new Date(0);
-    date.setUTCSeconds(decoded.exp);
-    return date;
-  }
-
-  isTokenExpired(token?: string): boolean {
-    if(!token) token = this.tokenStorageService.getToken();
-    if(!token) return true;
-
-    const date = this.getTokenExpirationDate(token);
-    if(date === undefined) return false;
-    return !(date.valueOf() > new Date().valueOf());
-  }
-
   refreshToken(){
     return this.http.post(AUTH_API + 'auth/refresh-token', {
       userEmail: this.tokenStorageService.getUser().userEmail,
       refreshToken: this.tokenStorageService.getRefreshToken()
-    })
+    }).pipe(tap((tokens: Tokens) => {
+      this.tokenStorageService.saveToken(tokens.jwt);
+    }))
   }
 
   confirmEmail(emailConfirmationToken: string) {

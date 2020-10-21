@@ -10,11 +10,10 @@ import {
 } from '@angular/common/http';
 import {TokenStorageService} from './demo/modules/auth/services/token-storage.service.js';
 import {Injectable} from '@angular/core';
-import {catchError, map, retry, take, tap} from 'rxjs/operators';
+import {catchError, filter, map, retry, switchMap, take, tap} from 'rxjs/operators';
 import {log} from 'util';
 import {AuthService} from './demo/modules/auth/services/auth.service';
-import {throwError} from 'rxjs';
-import {ERROR} from '@angular/compiler-cli/src/ngtsc/logging/src/console_logger';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -22,35 +21,56 @@ const TOKEN_HEADER_KEY = 'Authorization';
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(private tokenStorageService: TokenStorageService,
-              private authService: AuthService) { }
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    let authReq = req;
-    const token = this.tokenStorageService.getToken();
-    if (token != null) {
-      authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
-      if (this.authService.isTokenExpired(token)){
-        this.authService.refreshToken().pipe(take(1)).subscribe(data => console.log('DATA' + data), error =>
-        console.log('erro' + error))
-      }
+  constructor(public authService: AuthService,
+              private tokenStorageService: TokenStorageService) { }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    if (this.tokenStorageService.getToken()) {
+      request = this.addToken(request, this.tokenStorageService.getToken());
     }
 
-    return next.handle(authReq).pipe(tap(event => {
-        if (event instanceof HttpErrorResponse){
-          console.log('HttpErrorResponse');
-        }else if (event instanceof HttpResponse){
-          console.log("HttpResponse");
-        }else if (event instanceof  Error) {
-          console.log('error')
-        }
-        else if (event instanceof  ErrorEvent) {
-          console.log('ErrorEvent')
-        }
-        else {
-            console.log('event');
-        }
-    }))
+    return next.handle(request).pipe(catchError(error => {
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        return this.handle401Error(request, next);
+      } else {
+        return throwError(error);
+      }
+    }));
+  }
+
+  private addToken(request: HttpRequest<any>, token: string) {
+    return request.clone({
+      setHeaders: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+
+      return this.authService.refreshToken().pipe(
+        switchMap((token: any) => {
+          console.log(token);
+          this.isRefreshing = false;
+          this.refreshTokenSubject.next(token.jwt);
+          return next.handle(this.addToken(request, token.jwt));
+        }));
+
+    } else {
+      return this.refreshTokenSubject.pipe(
+        filter(token => token != null),
+        take(1),
+        switchMap(jwt => {
+          return next.handle(this.addToken(request, jwt));
+        }));
+    }
   }
 }
 
