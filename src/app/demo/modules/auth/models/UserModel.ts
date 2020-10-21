@@ -11,4 +11,5 @@ export interface User {
   userSex: string;
   imageUrl: string;
   cart: Cart;
+  roles: string[];
 }

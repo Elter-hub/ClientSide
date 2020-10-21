@@ -12,13 +12,16 @@ import {UserService} from '../../../user/services/user.service';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
+  admin: boolean;
   user: User;
+  promotion = false;
   @Input() item: Item;
   constructor(private userService: UserService,
               private addItemToCart: AddItemToCartService) { }
 
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user => this.user  = user)
+    this.user.roles.includes("ROLE_ADMIN") ? this.admin = true : this.admin = false;
   }
 
   addToCart() {
@@ -26,10 +29,14 @@ export class ItemComponent implements OnInit {
       data => {
         console.log(data);
         this.user.cart = data;
-        console.log(this.user.cart);
+        console.log(this.user.roles);
 
         this.userService.changeUser(this.user);
     },
       error => console.log(error))
+  }
+
+  promote(price: number) {
+    this.promotion = true;
   }
 }

@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { ItemComponent } from './components/item/item.component';
 import {AllItemsComponent} from './components/all-items/all-items.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         ReactiveFormsModule,
         MatInputModule,
         MatSelectModule,
-        DragDropModule
+        DragDropModule,
+        MatIconModule
     ]
 })
 export class ContentModule { }

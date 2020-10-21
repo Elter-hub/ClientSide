@@ -23,6 +23,7 @@
     "@angular/router": "~10.1.4",
     "@stripe/stripe-js": "^1.10.0",
     "angularx-social-login": "^3.2.2",
+    "jwt-decode": "^3.0.0",
     "ngx-stripe": "^10.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

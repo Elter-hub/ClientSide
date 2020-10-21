@@ -27,3 +27,8 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.optionButton {
+  top: 60%;
+  left: 70%;
+}

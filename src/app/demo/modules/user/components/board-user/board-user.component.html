@@ -1,12 +1,17 @@
 <div class="wrapper">
   <mat-card class="shadowbox">
     <mat-card-header>
+      <button mat-icon-button color="accent" class="optionButton" (click)="showOptions()">Options
+        <mat-icon>build</mat-icon>
+      </button>
       <mat-list>
         <mat-list-item>
           <mat-card-title [ngStyle]="{color: '#69f0ae'}">
             <h2>User info</h2>
           </mat-card-title>
+
         </mat-list-item>
+
         <mat-divider></mat-divider>
         <br>
         <mat-list-item>
@@ -25,9 +30,7 @@
     <mat-card-content><br>Age: {{user.userAge}} <br>
       Email 📧: {{user.userEmail}} <br>
       NickName: {{user.userNickName}}</mat-card-content>
-    <button mat-icon-button color="accent" (click)="showOptions()">Options
-      <mat-icon>build</mat-icon>
-    </button>
+
   </mat-card>
   <div class="secondColumn">
     <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
@@ -143,8 +146,6 @@
     <br>
     <h2 *ngIf="showSuccess" class="bg-success"> Password was changed!</h2>
   </div>
-  <button mat-raised-button (click)="showCart()">Show cart</button>
 </div>
-
 <div>
 </div>

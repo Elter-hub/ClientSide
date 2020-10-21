@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.showSpinner = false;
-        setTimeout(() => this.router.navigate(['']), 3000)
+        setTimeout(() => this.router.navigate(['login']), 3000)
       },
       err => {
         this.showSpinner = false;

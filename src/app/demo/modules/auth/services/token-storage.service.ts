@@ -23,6 +23,14 @@ export class TokenStorageService {
     return sessionStorage.getItem(TOKEN_KEY);
   }
 
+  saveRefreshToken(refreshToken: string) {
+    window.sessionStorage.removeItem('refreshToken');
+    window.sessionStorage.setItem('refreshToken', refreshToken);
+  }
+  public getRefreshToken(): string {
+    return sessionStorage.getItem('refreshToken');
+}
+
   public saveUser(user) {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));

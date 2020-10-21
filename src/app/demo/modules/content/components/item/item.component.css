@@ -1,6 +1,7 @@
 .example-card {
   max-width: 400px;
   height: 450px;
+
 }
 
 .example-card:active {
@@ -11,7 +12,7 @@
 
 .example-card:hover {
   box-shadow: rgba(2, 8, 20, 0.3) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.3) 0px 0.35em 1.175em;
-  transform: translateY(-3px) scale(1.1);
+  transform: translateY(-3px) scale(1.2);
   z-index: 5;
 }
 
