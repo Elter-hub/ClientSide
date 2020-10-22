@@ -27,10 +27,7 @@ export class ItemComponent implements OnInit {
   addToCart() {
     this.addItemToCart.addToCart(this.user.userEmail, this.item.itemId).subscribe(
       data => {
-        console.log(data);
         this.user.cart = data;
-        console.log(this.user.roles);
-
         this.userService.changeUser(this.user);
     },
       error => console.log(error))

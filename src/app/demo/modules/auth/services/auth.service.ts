@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHandler, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TokenStorageService} from './token-storage.service';
 import jwt_decode from 'jwt-decode';
 import {catchError, switchMap, tap} from 'rxjs/operators';
@@ -19,6 +19,7 @@ const httpOptions = {
 export class AuthService {
 
   constructor(private http: HttpClient,
+              private router: Router,
               private tokenStorageService: TokenStorageService) { }
 
   login(form): Observable<any> {
@@ -40,19 +41,20 @@ export class AuthService {
     }, httpOptions);
   }
 
-   refreshToken(){
-     return  this.http.post(AUTH_API + 'auth/refresh-token', {
-       userEmail: this.tokenStorageService.getUser().userEmail,
-       refreshToken: this.tokenStorageService.getRefreshToken(),
-       accessToken: this.tokenStorageService.getToken()
-     }).pipe( tap((tokens: Tokens) => {
-       console.log(tokens);
-       this.tokenStorageService.saveToken(tokens.accessToken);
-       this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
-     }),  catchError(error => {
-       console.log(error);
-       return throwError(error);
-     }));
+  refreshToken(){
+    return this.http.post(AUTH_API + 'auth/refresh-token', {
+      userEmail: this.tokenStorageService.getUser().userEmail,
+      refreshToken: this.tokenStorageService.getRefreshToken(),
+      accessToken: this.tokenStorageService.getToken()
+    }).pipe(tap((tokens: Tokens) => {
+      console.log(tokens);
+      this.tokenStorageService.saveToken(tokens.accessToken);
+      this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
+    }), catchError(error => {
+      console.log(error);
+      this.tokenStorageService.signOut();
+      return throwError(error);
+    }))
   }
 
   confirmEmail(emailConfirmationToken: string) {
