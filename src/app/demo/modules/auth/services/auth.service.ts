@@ -40,19 +40,19 @@ export class AuthService {
     }, httpOptions);
   }
 
-  refreshToken(){
-    return this.http.post(AUTH_API + 'auth/refresh-token', {
-      userEmail: this.tokenStorageService.getUser().userEmail,
-      refreshToken: this.tokenStorageService.getRefreshToken(),
-      accessToken: this.tokenStorageService.getToken()
-    }).pipe(tap((tokens: Tokens) => {
-      console.log(tokens);
-      this.tokenStorageService.saveToken(tokens.accessToken);
-      this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
-    }), catchError(error => {
-      console.log(error);
-      return throwError(error);
-    }))
+   refreshToken(){
+     return  this.http.post(AUTH_API + 'auth/refresh-token', {
+       userEmail: this.tokenStorageService.getUser().userEmail,
+       refreshToken: this.tokenStorageService.getRefreshToken(),
+       accessToken: this.tokenStorageService.getToken()
+     }).pipe( tap((tokens: Tokens) => {
+       console.log(tokens);
+       this.tokenStorageService.saveToken(tokens.accessToken);
+       this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
+     }),  catchError(error => {
+       console.log(error);
+       return throwError(error);
+     }));
   }
 
   confirmEmail(emailConfirmationToken: string) {
