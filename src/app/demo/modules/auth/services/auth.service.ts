@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHandler, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from './token-storage.service';
 import jwt_decode from 'jwt-decode';
-import {switchMap, tap} from 'rxjs/operators';
+import {catchError, switchMap, tap} from 'rxjs/operators';
 import {Tokens} from '../models/Tokens';
 
 const AUTH_API = 'http://localhost:8082/api/';
@@ -49,6 +49,9 @@ export class AuthService {
       console.log(tokens);
       this.tokenStorageService.saveToken(tokens.accessToken);
       this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
+    }), catchError(error => {
+      console.log(error);
+      return throwError(error);
     }))
   }
 
