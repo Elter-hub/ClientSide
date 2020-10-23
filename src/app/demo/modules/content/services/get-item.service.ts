@@ -41,6 +41,10 @@ export class GetItemService {
     return this.http.get<Item[]>(CONTENT_API + 'roms')
   }
 
+  getAllItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(CONTENT_API + 'all-items')
+  }
+
   postItem(value: any){
     return this.http.post(CONTENT_API + 'add-item', {
       price: value.price,

@@ -42,6 +42,7 @@ export class ItemComponent implements OnInit {
   }
 
   addToCart(item: Item) {
+    console.log(item);
     if (this.user.cart.items.includes(item)){
       this.user.cart.quantities[this.user.cart.items.indexOf(item)]++
       this.userService.changeUser(this.user);

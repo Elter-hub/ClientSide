@@ -14,6 +14,11 @@ export class AllItemsComponent implements OnInit {
    brandies: Item[];
    vodkas: Item[];
    absents: Item[];
+   allItems: Item[];
+  types = ['WHISKEY', 'LIQUOR', 'ROM', 'BRANDY', 'VODKA', 'ABSENT']
+  filtered: Item[];
+  filter = false;
+
 
   constructor(private getItemService: GetItemService) { }
 
@@ -24,6 +29,36 @@ export class AllItemsComponent implements OnInit {
     this.getItemService.getBrandies().subscribe(data => this.brandies = data, error => console.log(error));
     this.getItemService.getVodkas().subscribe(data => this.vodkas = data, error => console.log(error));
     this.getItemService.getAbsents().subscribe(data => this.absents = data, error => console.log(error));
+    this.getItemService.getAllItems().subscribe(data => {
+      this.filtered = data;
+      this.allItems = data
+    }, error => console.log(error))
   }
 
+  byLowestPrice() {
+    this.filtered.sort((item1, item2) => {
+      return item1.price > item2.price ? 1 : -1;
+    } )
+  }
+
+  byHighestPrice() {
+    this.filtered.sort((item1, item2) => {
+      return item1.price > item2.price ? -1 : 1;
+    } )
+  }
+
+  showByType(type) {
+    this.filtered = Object.assign([], this.allItems);
+    this.filter = true;
+    if (!type) {
+    } // when nothing has typed
+     this.filtered = this.filtered.filter(
+      item => item.type == type
+    )
+  }
+
+  showAll() {
+    this.filter = false;
+    this.filtered = Object.assign([], this.allItems);
+  }
 }

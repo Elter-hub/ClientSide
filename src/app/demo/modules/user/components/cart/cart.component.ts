@@ -10,6 +10,7 @@ import {log} from 'util';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
 import {PaymentFormComponent} from '../../../payment/components/payment-form/payment-form.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -22,9 +23,11 @@ export class CartComponent implements OnInit {
   items: Item[];
   quantities: number[];
   sum = 0;
+  success = false;
 
   constructor(private userService: UserService,
               private addItemToCart: AddItemToCartService,
+              private router: Router,
               private cartService: CartService,
               private dialog: MatDialog,) { }
 
@@ -69,7 +72,6 @@ export class CartComponent implements OnInit {
 
   increase(index: number) {
     this.user.cart.quantities[index]++;
-    this.addItemToCart.buyItems(this.user.userEmail, this.user.cart.items[index].itemId).subscribe(x => console.log(x))
     this.quantities = this.user.cart.quantities;
     this.sum += this.user.cart.items[index].price;
     this.userService.changeUser(this.user);
@@ -87,7 +89,8 @@ export class CartComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.success = true;
+      setTimeout(() => this.router.navigate(['content']).then(window.location.reload), 2000)
     });
   }
 }

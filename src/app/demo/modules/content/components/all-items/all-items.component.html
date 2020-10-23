@@ -1,9 +1,35 @@
 <router-outlet></router-outlet>
+<div class="menu">
+  <div>
+    <button mat-stroked-button color="accent" *ngIf="filter" (click)="showAll()">Show all</button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>filter_alt</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="byHighestPrice()">
+        <mat-icon>attach_money</mat-icon>
+        <span>By higher price</span>
+      </button>
+      <button mat-menu-item (click)="byLowestPrice()">
+        <mat-icon>attach_money</mat-icon>
+        <span>By lower price</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="alcoholTypes">
+        <mat-icon>local_bar</mat-icon>
+        <span>By type</span>
+      </button>
+    </mat-menu>
+    <mat-menu #alcoholTypes="matMenu">
+      <button mat-menu-item *ngFor="let type of types" (click)="showByType(type)">{{type}}</button>
+    </mat-menu>
+  </div>
+</div>
 <div class="content">
-  <app-item *ngFor="let whiskey of whiskeys" [item]="whiskey"></app-item>
-  <app-item *ngFor="let liquor of liquors" [item]="liquor"></app-item>
-  <app-item *ngFor="let brandie of brandies" [item]="brandie"></app-item>
-  <app-item *ngFor="let rom of roms" [item]="rom"></app-item>
-  <app-item *ngFor="let vodka of vodkas" [item]="vodka"></app-item>
-  <app-item *ngFor="let absent of absents" [item]="absent"></app-item>
+  <!--  <app-item *ngFor="let whiskey of whiskeys" [item]="whiskey"></app-item>-->
+  <!--  <app-item *ngFor="let liquor of liquors" [item]="liquor"></app-item>-->
+  <!--  <app-item *ngFor="let brandie of brandies" [item]="brandie"></app-item>-->
+  <!--  <app-item *ngFor="let rom of roms" [item]="rom"></app-item>-->
+  <!--  <app-item *ngFor="let vodka of vodkas" [item]="vodka"></app-item>-->
+  <!--  <app-item *ngFor="let absent of absents" [item]="absent"></app-item>-->
+  <app-item *ngFor="let item of filtered" [item]="item"></app-item>
 </div>

@@ -15,6 +15,9 @@ import { ItemComponent } from './components/item/item.component';
 import {AllItemsComponent} from './components/all-items/all-items.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatIconModule} from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import {MatIconModule} from '@angular/material/icon';
         MatSelectModule,
         DragDropModule,
         MatIconModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule
     ]
 })
 export class ContentModule { }

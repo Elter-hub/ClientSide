@@ -54,6 +54,6 @@
   <p *ngIf="item.discount">{{item.newPrice | currency:'UAH':'symbol-narrow'}}</p>
   <mat-card-actions>
     <b *ngIf="item.quantity <= 0">SOLD OUT</b>
-    <button mat-stroked-button color="primary" [disabled]="item.quantity <= 0" (click)="addToCart(item)">Add to cart</button>
+    <button mat-button color="primary" [disabled]="item.quantity <= 0" (click)="addToCart(item)">Add to cart</button>
   </mat-card-actions>
 </mat-card>

@@ -6,9 +6,9 @@ import {AllItemsComponent} from './components/all-items/all-items.component';
 
 const routes: Routes = [
   {path: '', component: AllItemsComponent, children: [
-      { path: '', component: MenuComponent },
-      {path: 'add-item', component: AddItemComponent}
+      {path: '', component: MenuComponent },
   ]},
+  {path: 'add-item', component: AddItemComponent},
 ];
 
 @NgModule({
