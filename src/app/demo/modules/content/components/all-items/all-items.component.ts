@@ -61,4 +61,14 @@ export class AllItemsComponent implements OnInit {
     this.filter = false;
     this.filtered = Object.assign([], this.allItems);
   }
+
+  filterByName(value: string) {
+    this.filtered = Object.assign([], this.allItems);
+    this.filter = true;
+    if (!value) {
+    }
+    this.filtered = this.filtered.filter(
+      item => item.itemName.includes(value)
+    )
+  }
 }

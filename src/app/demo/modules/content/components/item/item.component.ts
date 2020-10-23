@@ -24,6 +24,7 @@ export class ItemComponent implements OnInit {
    showForm = false;
    newQuantityForm: FormGroup;
   fill = false;
+  inCart = false;
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
               private changeItemService: ChangeItemService) { }
@@ -43,6 +44,7 @@ export class ItemComponent implements OnInit {
 
   addToCart(item: Item) {
     console.log(item);
+    this.inCart = true;
     if (this.user.cart.items.includes(item)){
       this.user.cart.quantities[this.user.cart.items.indexOf(item)]++
       this.userService.changeUser(this.user);
@@ -51,6 +53,9 @@ export class ItemComponent implements OnInit {
       this.user.cart.quantities.push(1);
       this.userService.changeUser(this.user);
     }
+    setTimeout(() => {
+      this.inCart = false
+    }, 500)
   }
 
   promote(item: Item) {

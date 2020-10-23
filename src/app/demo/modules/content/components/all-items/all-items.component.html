@@ -1,8 +1,15 @@
 <router-outlet></router-outlet>
 <div class="menu">
   <div>
+      <mat-form-field class="example">
+        <mat-label>Favorite drink</mat-label>
+        <input #element matInput placeholder="Віскі" (input)="filterByName(element.value)">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+  </div>
+  <div>
     <button mat-stroked-button color="accent" *ngIf="filter" (click)="showAll()">Show all</button>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button mat-fab color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>filter_alt</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

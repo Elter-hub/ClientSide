@@ -2,8 +2,8 @@
   <mat-card-header>
     <mat-card-title>{{item.itemName}}</mat-card-title>
     <div class="promotion" *ngIf="admin">
-    <mat-select [value]="'promote'" mat-icon-button color="primary" class="optionButton" >Options
-      <mat-option (click)="promote(item)">promote</mat-option>
+    <mat-select [value]="'promote'" class="optionButton" >Options
+      <mat-option (click)="promote(item)">Promote</mat-option>
       <mat-option (click)="cancelPromotion(item)">Cancel promotion</mat-option>
       <mat-option (click)="delete(item)">Delete Item</mat-option>
       <mat-option (click)="addQuantity(item)">Add Quantity</mat-option>
@@ -56,4 +56,6 @@
     <b *ngIf="item.quantity <= 0">SOLD OUT</b>
     <button mat-button color="primary" [disabled]="item.quantity <= 0" (click)="addToCart(item)">Add to cart</button>
   </mat-card-actions>
+  <p *ngIf="inCart" class="alert-success">Item in cart!</p>
+
 </mat-card>

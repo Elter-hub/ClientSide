@@ -7,5 +7,9 @@
 
 .menu {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.example{
+  width: 350px;
 }

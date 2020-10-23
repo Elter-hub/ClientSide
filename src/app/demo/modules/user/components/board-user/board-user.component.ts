@@ -7,6 +7,7 @@ import {User} from '../../../auth/models/UserModel';
 import {TokenStorageService} from '../../../auth/services/token-storage.service';
 import {AuthService} from '../../../auth/services/auth.service';
 import {UserActionService} from '../../../auth/services/user-action.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-board-user',
@@ -29,7 +30,8 @@ export class BoardUserComponent implements OnInit {
 
   constructor(private token: TokenStorageService,
               private authService: AuthService,
-              private userService: UserActionService,
+              private userActionService: UserActionService,
+              private userService: UserService,
               private dialog: MatDialog,
               private formBuilder: FormBuilder) {
   }
@@ -56,7 +58,7 @@ export class BoardUserComponent implements OnInit {
 
   onSubmit() {
     this.showSpinner = true;
-    this.userService.userChangePassword(this.user.userEmail,
+    this.userActionService.userChangePassword(this.user.userEmail,
                                         this.form.value.userOldPassword,
                                         this.form.value.userNewPassword)
       .subscribe(data => {
@@ -84,14 +86,14 @@ export class BoardUserComponent implements OnInit {
   }
 
   changeImgUrl(form: HTMLFormElement, userEmail: string) {
-    this.userService.changeImageUrl(form.url, userEmail).subscribe(data =>{
+    this.userActionService.changeImageUrl(form.url, userEmail).subscribe(data =>{
       this.user.imageUrl = form.url
       this.token.saveUser(this.user);
     });
   }
 
   confirmPasswordChanges() {
-    this.userService.userConfirmPasswordChanges(this.user.userEmail, this.formConfirm.value.confirm)
+    this.userActionService.userConfirmPasswordChanges(this.user.userEmail, this.formConfirm.value.confirm)
       .subscribe(data => {
         this.showSuccess = true
         this.formConfirm.reset();
@@ -133,5 +135,9 @@ export class BoardUserComponent implements OnInit {
   }
 
 
-
+  clearCart() {
+    this.user.cart.items = []
+    this.user.cart.quantities = []
+    this.userService.changeUser(this.user);
+  }
 }

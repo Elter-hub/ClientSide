@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContentRoutingModule } from './content-routing.module';
-import { MenuComponent } from './components/menu/menu.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { AddItemComponent } from './components/add-item/add-item.component';
@@ -21,7 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
-  declarations: [MenuComponent, AddItemComponent, ItemComponent, AllItemsComponent],
+  declarations: [AddItemComponent, ItemComponent, AllItemsComponent],
     imports: [
         CommonModule,
         ContentRoutingModule,
