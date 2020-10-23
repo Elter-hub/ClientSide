@@ -6,4 +6,7 @@ export interface Item {
   itemImageUrl: string;
   description: string;
   stars: number;
+  quantity: number;
+  discount?: number;
+  newPrice?: number;
 }

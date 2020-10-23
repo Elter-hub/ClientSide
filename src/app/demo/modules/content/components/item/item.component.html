@@ -1,10 +1,13 @@
-<mat-card class="example-card" cdkDrag >
+<mat-card class="example-card" [ngClass]="item.quantity <= 0 ? 'soldOut' : 'available'">
   <mat-card-header>
     <mat-card-title>{{item.itemName}}</mat-card-title>
     <div class="promotion" *ngIf="admin">
-    <button  mat-icon-button color="primary" class="optionButton" (click)="promote(item.price)">Options
-      <mat-icon>build</mat-icon>
-    </button>
+    <mat-select [value]="'promote'" mat-icon-button color="primary" class="optionButton" >Options
+      <mat-option (click)="promote(item)">promote</mat-option>
+      <mat-option (click)="cancelPromotion(item)">Cancel promotion</mat-option>
+      <mat-option (click)="delete(item)">Delete Item</mat-option>
+      <mat-option (click)="addQuantity(item)">Add Quantity</mat-option>
+    </mat-select>
     </div>
   </mat-card-header>
   <img mat-card-image [src]="item.itemImageUrl" alt="Photo of a ">
@@ -14,10 +17,43 @@
     </p>
   </mat-card-content>
   <mat-card-content
-    [ngStyle]="{textDecorationLine: promotion ? 'line-through' : 'none',
+    [ngStyle]="{textDecorationLine: item.discount ? 'line-through' : 'none',
                 color: promotion ? 'red' : 'black'}">
     {{item.price | currency:'UAH':'symbol-narrow'}}</mat-card-content>
+  <form *ngIf="showForm"
+        [formGroup]="newPriceForm"
+        name="loginForm"
+        (ngSubmit)="f.form.valid"
+        #f="ngForm"
+        novalidate>
+    <mat-form-field>
+      <mat-label for="email">New Price</mat-label>
+      <input matInput
+             [formControl]="newPrice"
+             name="email">
+      <mat-error *ngIf="newPrice.errors?.required">Field is required'</mat-error>
+    </mat-form-field>
+    <button mat-raised-button type="submit" (click)="changePrice(item, newPrice.value)">Change</button>
+  </form>
+  <form *ngIf="fill"
+        [formGroup]="newQuantityForm"
+        name="loginForm"
+        (ngSubmit)="f.form.valid"
+        #f="ngForm"
+        novalidate>
+    <mat-form-field>
+      <mat-label for="email">Add Quantity</mat-label>
+      <input matInput
+             [formControl]="newQuantity"
+             name="email">
+      <mat-error *ngIf="newQuantity.errors?.required">Field is required'</mat-error>
+    </mat-form-field>
+    <button mat-raised-button type="submit" (click)="changeQuantity(item, newQuantity.value)">Change</button>
+  </form>
+  <p *ngIf="item.discount">Discount: {{item.discount}}%</p>
+  <p *ngIf="item.discount">{{item.newPrice | currency:'UAH':'symbol-narrow'}}</p>
   <mat-card-actions>
-    <button mat-stroked-button (click)="addToCart()">Add to cart</button>
+    <b *ngIf="item.quantity <= 0">SOLD OUT</b>
+    <button mat-stroked-button color="primary" [disabled]="item.quantity <= 0" (click)="addToCart(item)">Add to cart</button>
   </mat-card-actions>
 </mat-card>

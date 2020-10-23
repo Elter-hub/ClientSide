@@ -30,7 +30,8 @@ import {MatIconModule} from '@angular/material/icon';
         MatInputModule,
         MatSelectModule,
         DragDropModule,
-        MatIconModule
+        MatIconModule,
+      ReactiveFormsModule
     ]
 })
 export class ContentModule { }

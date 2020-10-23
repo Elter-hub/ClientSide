@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
 
   increase(index: number) {
     this.user.cart.quantities[index]++;
-    this.addItemToCart.addToCart(this.user.userEmail, this.user.cart.items[index].itemId).subscribe(x => console.log(x))
+    this.addItemToCart.buyItems(this.user.userEmail, this.user.cart.items[index].itemId).subscribe(x => console.log(x))
     this.quantities = this.user.cart.quantities;
     this.sum += this.user.cart.items[index].price;
     this.userService.changeUser(this.user);
@@ -81,7 +81,9 @@ export class CartComponent implements OnInit {
     });
       const dialogRef = this.dialog.open(PaymentFormComponent, {
       data: { amount: this.sum,
-              email: this.user.userEmail
+              email: this.user.userEmail,
+              items: this.user.cart.items,
+              quantities: this.user.cart.quantities
       }
     });
     dialogRef.afterClosed().subscribe(result => {

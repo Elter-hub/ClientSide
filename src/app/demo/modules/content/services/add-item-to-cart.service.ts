@@ -16,7 +16,7 @@ export class AddItemToCartService {
 
   constructor(private httpClient: HttpClient) { }
 
-  addToCart(userEmail: string, itemId: number): Observable<Cart>{
+  buyItems(userEmail: string, itemId: number): Observable<Cart>{
     return this.httpClient.patch<Cart>(CART_API + 'add-item', {
       userEmail: userEmail,
       itemId: itemId

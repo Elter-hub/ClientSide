@@ -4,6 +4,7 @@ import {TokenStorageService} from '../../services/token-storage.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../models/UserModel';
+import {UserService} from '../../../user/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private userService: UserService,
               private router: Router,
               private tokenStorage: TokenStorageService) { }
 
@@ -45,7 +47,8 @@ export class LoginComponent implements OnInit {
         console.log(data.refreshToken);
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveRefreshToken(data.refreshToken)
-        this.tokenStorage.saveUser(data);
+        localStorage.getItem('auth-user') ? this.userService.changeUser(this.tokenStorage.getUser())
+                                              : this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;

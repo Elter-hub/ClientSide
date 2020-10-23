@@ -5,6 +5,7 @@ import {log} from 'util';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {UserService} from '../../../user/services/user.service';
 import {User} from '../../../auth/models/UserModel';
+import {Item} from '../../../content/model/item';
 
 @Component({
   selector: 'app-payment-form',
@@ -37,19 +38,24 @@ export class PaymentFormComponent implements OnInit {
     }, (status: number, response: any) => {
       if (status === 200) {
         let token = response.id;
-        this.chargeCard(token, this.data.email);
+        this.chargeCard(token, this.data.email, this.data.items, this.data.quantities);
       } else {
         console.log(response.error);
       }
     });
   }
 
-  chargeCard(token: string, email: string) {
-    const headers = new HttpHeaders({'token': token, 'amount': this.data.amount.toString(), email: email});
-    this.http.post('http://localhost:8082/payment/charge', {},
+  chargeCard(token: string, email: string, items: Item[], quantities: number[]) {
+    const headers = new HttpHeaders({'token': token, 'amount': this.data.amount.toString(),
+                                              email: email});
+    this.http.post('http://localhost:8082/payment/charge', {
+      items: items,
+      quantities: quantities
+      },
      {headers: headers})
       .subscribe(resp => {
         console.log(resp);
+        console.log(items);
         this.userService.currentUser.subscribe(user => this.user = user);
         this.user.cart.items = [];
         this.user.cart.quantities = [];
