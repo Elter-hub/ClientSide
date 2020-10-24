@@ -9,7 +9,7 @@
   </div>
   <div>
     <button mat-stroked-button color="accent" *ngIf="filter" (click)="showAll()">Show all</button>
-    <button mat-fab color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button mat-mini-fab color="warn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>filter_alt</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -32,11 +32,9 @@
   </div>
 </div>
 <div class="content">
-  <!--  <app-item *ngFor="let whiskey of whiskeys" [item]="whiskey"></app-item>-->
-  <!--  <app-item *ngFor="let liquor of liquors" [item]="liquor"></app-item>-->
-  <!--  <app-item *ngFor="let brandie of brandies" [item]="brandie"></app-item>-->
-  <!--  <app-item *ngFor="let rom of roms" [item]="rom"></app-item>-->
-  <!--  <app-item *ngFor="let vodka of vodkas" [item]="vodka"></app-item>-->
-  <!--  <app-item *ngFor="let absent of absents" [item]="absent"></app-item>-->
-  <app-item *ngFor="let item of filtered" [item]="item"></app-item>
+  <app-item *ngFor="let item of filtered | slice: lowValue : highValue" [item]="item" ></app-item>
 </div>
+
+<mat-paginator [length]="42" [pageSize]="10"
+               (page)="pageEvent = getPaginatorData($event)">
+</mat-paginator>
