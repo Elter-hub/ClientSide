@@ -18,9 +18,9 @@ $my-custom-theme: mat-dark-theme($my-custom-primary, $my-custom-accent, $my-cust
 
 // Alternate Angular Material Theme
 .my-alternate-theme {
-  $my-alternate-primary: mat-palette($mat-red);
-  $my-alternate-accent: mat-palette($mat-green, 400);
-  $my-alternate-warn: mat-palette($mat-purple);
+  $my-alternate-primary: mat-palette($mat-green);
+  $my-alternate-accent: mat-palette($mat-blue, 400);
+  $my-alternate-warn: mat-palette($mat-red);
 
   $my-alternate-theme: mat-light-theme($my-alternate-primary, $my-alternate-accent, $my-alternate-warn);
 
