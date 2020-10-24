@@ -1,9 +1,9 @@
-<div [ngClass]="day ? 'my-alternate-theme' : ''">
+<div [ngClass]="day ? '' : 'my-alternate-theme'">
   <div class="style">
     <button mat-icon-button color="accent" (click)="changeTheme()">
       <mat-icon *ngIf="!day">wb_sunny</mat-icon>
       <mat-icon *ngIf="day">nights_stay</mat-icon>
     </button>
   </div>
-  <router-outlet [ngClass]="day ? 'my-alternate-theme' : ''"></router-outlet>
+  <router-outlet [ngClass]="day ? '' : 'my-alternate-theme'"></router-outlet>
 </div><

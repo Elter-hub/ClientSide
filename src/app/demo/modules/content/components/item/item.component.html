@@ -2,12 +2,15 @@
   <mat-card-header>
     <mat-card-title>{{item.itemName}}</mat-card-title>
     <div class="promotion" *ngIf="admin">
-    <mat-select [value]="'promote'" class="optionButton" >Options
-      <mat-option (click)="promote(item)">Promote</mat-option>
-      <mat-option (click)="cancelPromotion(item)">Cancel promotion</mat-option>
-      <mat-option (click)="delete(item)">Delete Item</mat-option>
-      <mat-option (click)="addQuantity(item)">Add Quantity</mat-option>
-    </mat-select>
+      <mat-form-field>
+        <mat-label class="width">Options</mat-label>
+        <mat-select [value]="'promote'" class="optionButton">
+          <mat-option (click)="promote(item)">Promote</mat-option>
+          <mat-option (click)="cancelPromotion(item)">Cancel promotion</mat-option>
+          <mat-option (click)="delete(item)">Delete Item</mat-option>
+          <mat-option (click)="addQuantity(item)">Add Quantity</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </mat-card-header>
   <img mat-card-image [src]="item.itemImageUrl" alt="Photo of a ">

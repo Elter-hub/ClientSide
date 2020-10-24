@@ -1,16 +1,21 @@
 import {
   HttpErrorResponse,
   HttpEvent,
+  HttpEventType,
   HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
 import {TokenStorageService} from './demo/modules/auth/services/token-storage.service.js';
 import {Injectable} from '@angular/core';
-import {catchError, filter, switchMap, take} from 'rxjs/operators';
+import {catchError, filter, map, retry, switchMap, take, tap} from 'rxjs/operators';
+import {log} from 'util';
 import {AuthService} from './demo/modules/auth/services/auth.service';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 
+const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable({
   providedIn: 'root'
