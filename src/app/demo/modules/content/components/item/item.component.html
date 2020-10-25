@@ -1,4 +1,4 @@
-<mat-card class="example-card" [ngClass]="item.quantity <= 0 ? 'soldOut' : 'available'">
+<mat-card *ngIf="visible" class="example-card" [ngClass]="item.quantity <= 0 ? 'soldOut' : 'available'">
   <mat-card-header>
     <mat-card-title>{{item.itemName}}</mat-card-title>
     <div class="promotion" *ngIf="admin">

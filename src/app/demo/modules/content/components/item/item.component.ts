@@ -19,6 +19,7 @@ export class ItemComponent implements OnInit {
   user: User;
   promotion = false;
   soldOut = false;
+  visible = true;
   newPriceForm: FormGroup;
   @Input() item: Item;
    showForm = false;
@@ -88,6 +89,7 @@ export class ItemComponent implements OnInit {
   delete(item: Item) {
     this.changeItemService.deleteItem(item).subscribe(data =>
       this.item = data)
+    this.visible =false;
   }
 
   addQuantity(item: Item) {

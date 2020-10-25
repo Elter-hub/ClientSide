@@ -32,12 +32,11 @@
       NickName: {{user.userNickName}}</mat-card-content>
 
   </mat-card>
-  <div class="secondColumn">
+  <div >
     <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-    <div *ngIf="show" style="padding-top: 40px">
+    <div class="secondColumn" *ngIf="show" style="padding-top: 40px">
       <mat-card-header> In order to change your password please fill next form</mat-card-header>
       <mat-card-content>
-
         <form
           [formGroup]="form"
           name="registrationForm"
@@ -98,7 +97,7 @@
     </div>
 
     <form *ngIf="showUrlForm"
-          class="example-form"
+          class="example-form secondColumn"
           [formGroup]="changeImageUrlForm"
           #form="ngForm"
           (ngSubmit)="changeImgUrl(form.form.value, user.userEmail)"

@@ -6,4 +6,5 @@ form {
 .wrapper {
   display: flex;
   justify-content: space-between;
+  width: 400px;
 }

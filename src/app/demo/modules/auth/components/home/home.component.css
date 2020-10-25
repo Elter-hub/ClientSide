@@ -17,8 +17,6 @@
 }
 
 .mapa {
-  position: fixed;
-  bottom: 0;
   width: 100%;
 }
 
@@ -29,6 +27,16 @@
 
 .moveToRight {
   justify-content: flex-end;
+}
+
+.backGround {
+  background-image: url("https://www.bottledprices.com/wp-content/uploads/2018/08/store_banner.jpg");
+  background-size: auto;
+  height: 100vh;
+}
+
+.contain {
+  display: flex;
 }
 
 

@@ -5,7 +5,7 @@
 
 .shadowbox {
   box-shadow: 0 4px 8px 0 rgb(123, 31, 162), 0 6px 20px 0 rgb(123, 31, 162);
-  margin: 50px;
+  margin: 10px;
 }
 
 form {
@@ -14,9 +14,7 @@ form {
 }
 
 img {
-  display: flex;
-  width: 400px;
-  height: 400px;
+  display: compact;
 }
 
 .mat-divider {
@@ -25,10 +23,19 @@ img {
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  opacity: 0.95;
 }
 
 .optionButton {
   top: 60%;
   left: 70%;
 }
+
+.secondColumn {
+  background: #303030;
+}
+
+

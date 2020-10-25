@@ -2,3 +2,7 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.example-card {
+  opacity: 0.95;
+}

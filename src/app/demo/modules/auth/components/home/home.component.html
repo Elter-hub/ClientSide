@@ -11,7 +11,7 @@
       <a mat-list-item *ngIf="showAdminBoard" routerLink="/content/add-item">Add Content</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="backGround">
     <div class="spaceBetween">
       <mat-toolbar color="primary">
         <button
@@ -41,7 +41,7 @@
     <!-- Add Content Here -->
     <router-outlet ></router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>
 <app-footer class="mapa"></app-footer>
+
 

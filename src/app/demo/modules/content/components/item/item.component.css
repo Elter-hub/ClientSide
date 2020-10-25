@@ -1,14 +1,14 @@
 .example-card {
   max-width: 400px;
   height: 520px;
-
+  opacity: 0.95;
 }
 
 .soldOut {
   background: grey;
 }
 
-::ng-deep .mat-form-field-infix {
+.mat-form-field {
   width: 80px;
 }
 

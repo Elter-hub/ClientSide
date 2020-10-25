@@ -14,9 +14,9 @@ export class AllItemsComponent implements OnInit {
   filtered: Item[];
   filter = false;
   pageIndex:number = 0;
-  pageSize:number = 8;
+  pageSize:number = 10;
   lowValue:number = 0;
-  highValue:number = 8;
+  highValue:number = 10;
   pageEvent: PageEvent;
 
   constructor(private getItemService: GetItemService) { }
