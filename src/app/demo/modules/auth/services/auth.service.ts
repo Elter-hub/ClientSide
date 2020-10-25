@@ -47,7 +47,6 @@ export class AuthService {
       refreshToken: this.tokenStorageService.getRefreshToken(),
       accessToken: this.tokenStorageService.getToken()
     }).pipe(tap((tokens: Tokens) => {
-      console.log(tokens);
       this.tokenStorageService.saveToken(tokens.accessToken);
       this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
     }), catchError(error => {

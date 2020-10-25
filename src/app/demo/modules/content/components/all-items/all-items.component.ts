@@ -25,7 +25,10 @@ export class AllItemsComponent implements OnInit {
     this.getItemService.getAllItems().subscribe(data => {
       this.filtered = data;
       this.allItems = data
-    }, error => console.log(error))
+    }, error => {
+      console.log(error)
+      console.log('WAIT FOR FUCKING INTERCEPTOR TO HANDLE 401');
+    })
   }
 
   getPaginatorData(event){
