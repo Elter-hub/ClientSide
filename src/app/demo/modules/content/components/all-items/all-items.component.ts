@@ -85,10 +85,11 @@ export class AllItemsComponent implements OnInit {
     this.filtered = Object.assign([], this.allItems);
     this.filter = true;
     if (!value) {
+      this.filter = false;
     }
     this.filtered = this.filtered.filter(
       item => item.itemName.toLowerCase().includes(value.toLowerCase())
     )
-    this.getPaginatorData(null);
+    // this.getPaginatorData(null);
   }
 }
