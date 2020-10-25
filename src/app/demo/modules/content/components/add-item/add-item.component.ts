@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GetItemService} from '../../services/get-item.service';
 import {log} from 'util';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-item',
@@ -13,24 +14,35 @@ export class AddItemComponent implements OnInit {
   alcohols = ['WHISKEY', 'LIQUOR', 'ROM', 'BRANDY', 'VODKA', 'ABSENT']
   selected: any;
   constructor(private formBuilder: FormBuilder,
+              private _snackBar: MatSnackBar,
               private getItemService: GetItemService) { }
 
   ngOnInit(): void {
     this.addItemForm = this.formBuilder.group({
-      itemName: [''],
-      description: [''],
-      price: [''],
-      quantity: [''],
-      type: [''],
-      itemImageUrl: [''],
+      itemName: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.pattern('[0-9]+')]],
+      quantity: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      itemImageUrl: ['', [Validators.required]],
     })
   }
 
-  onSubmit(value: any) {
-    console.log(value);
-    this.getItemService.postItem(value).subscribe(data => console.log(data),
+  onSubmit(form: any) {
+    console.log(form);
+    this.getItemService.postItem(form).subscribe(data => {
+      this.openSnackBar(this.itemName.value, 'Successfully added!');
+      this.addItemForm.reset();
+    },
       error => console.log(error))
+
     return false;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   get itemName(){
@@ -51,6 +63,4 @@ export class AddItemComponent implements OnInit {
   get itemImageUrl(){
     return this.addItemForm.get('itemImageUrl');
   }
-
-
 }

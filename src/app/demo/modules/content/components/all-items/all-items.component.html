@@ -35,6 +35,6 @@
   <app-item *ngFor="let item of filtered | slice: lowValue : highValue" [item]="item" ></app-item>
 </div>
 
-<mat-paginator [length]="42" [pageSize]="10"
+<mat-paginator [length]="filtered?.length" [pageSize]="8"
                (page)="pageEvent = getPaginatorData($event)">
 </mat-paginator>

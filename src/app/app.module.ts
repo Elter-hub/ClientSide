@@ -35,6 +35,9 @@ import {BoardUserComponent} from './demo/modules/user/components/board-user/boar
 import {ProfileComponent} from './demo/modules/user/components/profile/profile.component';
 import { CartComponent } from './demo/modules/user/components/cart/cart.component';
 import {PaymentFormComponent} from './demo/modules/payment/components/payment-form/payment-form.component';
+import { FooterComponent } from './demo/modules/auth/components/footer/footer.component';
+import {AgmCoreModule} from '@agm/core';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import {PaymentFormComponent} from './demo/modules/payment/components/payment-fo
     DialogConfirmEmailComponent,
     UserChangePasswordConfirmationComponent,
     CartComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +77,10 @@ import {PaymentFormComponent} from './demo/modules/payment/components/payment-fo
     MatDialogModule,
     MatGridListModule,
     MatDividerModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDYW-dAsr-LEyZesO3qzdknFwVTvtaFL3Q'
+    }),
+    MatSnackBarModule
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
                 {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],

@@ -14,9 +14,9 @@ export class AllItemsComponent implements OnInit {
   filtered: Item[];
   filter = false;
   pageIndex:number = 0;
-  pageSize:number = 10;
+  pageSize:number = 8;
   lowValue:number = 0;
-  highValue:number = 10;
+  highValue:number = 8;
   pageEvent: PageEvent;
 
   constructor(private getItemService: GetItemService) { }
@@ -30,6 +30,13 @@ export class AllItemsComponent implements OnInit {
 
   getPaginatorData(event){
     console.log(event);
+    if (event == null){
+      this.pageIndex = 0;
+      this.lowValue = 0;
+      this.highValue = this.highValue - this.pageSize;
+      return;
+    }
+
     if(event.pageIndex === this.pageIndex + 1){
       this.lowValue = this.lowValue + this.pageSize;
       this.highValue =  this.highValue + this.pageSize;
@@ -39,18 +46,21 @@ export class AllItemsComponent implements OnInit {
       this.highValue =  this.highValue - this.pageSize;
     }
     this.pageIndex = event.pageIndex;
+
     return event
   }
 
 
   byLowestPrice() {
     this.filtered.sort((item1, item2) => {
+      this.filter = true;
       return item1.price > item2.price ? 1 : -1;
     } )
   }
 
   byHighestPrice() {
     this.filtered.sort((item1, item2) => {
+      this.filter = true;
       return item1.price > item2.price ? -1 : 1;
     } )
   }
@@ -58,6 +68,7 @@ export class AllItemsComponent implements OnInit {
   showByType(type) {
     this.filtered = Object.assign([], this.allItems);
     this.filter = true;
+
     if (!type) {
     } // when nothing has typed
      this.filtered = this.filtered.filter(
@@ -76,7 +87,8 @@ export class AllItemsComponent implements OnInit {
     if (!value) {
     }
     this.filtered = this.filtered.filter(
-      item => item.itemName.includes(value)
+      item => item.itemName.toLowerCase().includes(value.toLowerCase())
     )
+    this.getPaginatorData(null);
   }
 }

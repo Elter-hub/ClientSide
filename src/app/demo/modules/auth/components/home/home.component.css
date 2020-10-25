@@ -16,6 +16,12 @@
   z-index: 1;
 }
 
+.mapa {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 .spaceBetween {
   display: flex;
   justify-content: space-between;

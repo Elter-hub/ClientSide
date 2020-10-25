@@ -134,10 +134,4 @@ export class BoardUserComponent implements OnInit {
     return this.formConfirm.get('confirm')
   }
 
-
-  clearCart() {
-    this.user.cart.items = []
-    this.user.cart.quantities = []
-    this.userService.changeUser(this.user);
-  }
 }

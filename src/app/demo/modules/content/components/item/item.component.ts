@@ -43,6 +43,7 @@ export class ItemComponent implements OnInit {
   }
 
   addToCart(item: Item) {
+    console.log(this.user.roles);
     console.log(item);
     this.inCart = true;
     if (this.user.cart.items.includes(item)){

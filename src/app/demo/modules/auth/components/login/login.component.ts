@@ -27,12 +27,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      userEmail: ['', [Validators.required, /*Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)*/]],
-      userPassword: ['', [Validators.required, /*Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')*/]],
+      userEmail: ['', [Validators.required, Validators.minLength(3)]],
+      userPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
     });
 
     if (this.tokenStorage.getToken()) {
-      console.log(this.tokenStorage.getToken());
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
@@ -41,10 +40,6 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(
       data => {
-        console.log(data);
-        console.log(data.accessToken === data.refreshToken);
-        console.log(data.accessToken);
-        console.log(data.refreshToken);
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveRefreshToken(data.refreshToken)
         localStorage.getItem('auth-user') ? this.userService.changeUser(this.tokenStorage.getUser())

@@ -8,13 +8,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 2px 2px 25px #42a5f5;
+  -webkit-box-shadow: inset 2px 2px 25px #424242;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #0b740f;
+  background-color: #673ab7;
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:active {
-  background-color: #33e23a;
+  background-color: #680266;
 }
