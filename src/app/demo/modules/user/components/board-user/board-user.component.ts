@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/f
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
 import {MatDialog} from '@angular/material/dialog';
-import {User} from '../../../auth/models/UserModel';
+import {User} from '../../../auth/models/User';
 import {TokenStorageService} from '../../../auth/services/token-storage.service';
 import {AuthService} from '../../../auth/services/auth.service';
 import {UserActionService} from '../../../auth/services/user-action.service';

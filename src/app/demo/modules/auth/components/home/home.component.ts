@@ -7,6 +7,10 @@ import {TokenStorageService} from '../../services/token-storage.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../user/services/user.service';
 import {log} from 'util';
+import {User} from '../../models/User';
+import {PaymentFormComponent} from '../../../payment/components/payment-form/payment-form.component';
+import {MatDialog} from '@angular/material/dialog';
+import {SendMessageFormComponent} from '../../../user/components/send-message-form/send-message-form.component';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +24,7 @@ export class HomeComponent implements OnInit {
   showModeratorBoard = false;
   userName: string;
   content: string;
+  user: User;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -30,6 +35,7 @@ export class HomeComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService,
               private userActionService: UserActionService,
               private userService: UserService,
+              private dialog: MatDialog,
               private router: Router,
               private breakpointObserver: BreakpointObserver) { }
 
@@ -38,6 +44,7 @@ export class HomeComponent implements OnInit {
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
+      this.user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.userName = user.userName;
@@ -49,5 +56,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['']).then(r => window.location.reload());
   }
 
-
+  openDialog() {
+    const dialog = this.dialog.open(SendMessageFormComponent, {
+      data: {email: this.user.userEmail}
+    });
+  }
 }

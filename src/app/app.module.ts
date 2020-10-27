@@ -38,6 +38,9 @@ import {PaymentFormComponent} from './demo/modules/payment/components/payment-fo
 import { FooterComponent } from './demo/modules/auth/components/footer/footer.component';
 import {AgmCoreModule} from '@agm/core';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {UserModule} from './demo/modules/user/user.module';
+import {SendMessageFormComponent} from './demo/modules/user/components/send-message-form/send-message-form.component';
 
 @NgModule({
   declarations: [
@@ -80,11 +83,13 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDYW-dAsr-LEyZesO3qzdknFwVTvtaFL3Q'
     }),
-    MatSnackBarModule
+    MatSnackBarModule,
+    ScrollingModule,
+    UserModule
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
                 {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
-  entryComponents: [DialogConfirmEmailComponent, PaymentFormComponent],
+  entryComponents: [DialogConfirmEmailComponent, PaymentFormComponent, SendMessageFormComponent],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
