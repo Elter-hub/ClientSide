@@ -44,13 +44,23 @@ export class UserActionService {
     });
   }
 
-  sendMessage(userEmail: string, subject: string, message: string){
-    return this.http.post(API_URL + 'user/send-message', {
+  sendMessage(userEmail: string, subject: string, message: string): Observable<Messages>{
+    return this.http.post<Messages>(API_URL + 'user/send-message', {
       userEmail: userEmail,
       subject: subject,
       message: message
     })
   }
+
+  respondMessage(userEmail: string, subject: string, message: string, messageId: number): Observable<Messages>{
+    return this.http.post<Messages>(API_URL + 'user/respond-message', {
+      userEmail: userEmail,
+      subject: subject,
+      message: message,
+      messageId: messageId
+    })
+  }
+
   getAdminBoard(): Observable<any> {
     return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
