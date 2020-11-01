@@ -1,0 +1,22 @@
+<h2>Send message to Admin</h2>
+<form
+      [formGroup]="sendMessageForm"
+      name="loginForm"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate>
+  <mat-form-field>
+    <mat-label for="email">Subject</mat-label>
+    <input matInput
+           [formControl]="subject"
+           name="subject">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="email">Message</mat-label>
+    <input matInput
+           [formControl]="message"
+           name="message">
+  </mat-form-field>
+  <button mat-raised-button type="submit">Send</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">Close</button>
+</form>
