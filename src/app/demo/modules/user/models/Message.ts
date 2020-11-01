@@ -1,11 +1,13 @@
+
 export interface Message {
-  message: string;
-  messageId: number;
-  subject: string;
-  type: string;
-  userEmail: string;
-  recipient: string;
-  responded: boolean;
+  id: number;
+  chatId: number;
+  senderId: number;
+  recipientId: number;
+  senderName: string;
+  recipientName: string;
+  content: string;
+  timestamp: Date;
 }
 
 export interface Messages {

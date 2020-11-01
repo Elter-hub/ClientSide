@@ -3,19 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import {MatCardModule} from '@angular/material/card';
-import { UserMessagesComponent } from './components/user-messages/user-messages.component';
 import { SendMessageFormComponent } from './components/send-message-form/send-message-form.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { OneMessageComponent } from './components/one-message/one-message.component';
+import {WebSocketComponent} from './components/web-socket/web-socket.component';
 
 
 @NgModule({
-  declarations: [UserMessagesComponent, SendMessageFormComponent, OneMessageComponent],
+  declarations: [SendMessageFormComponent,  WebSocketComponent],
   exports: [
   ],
   imports: [
@@ -27,7 +26,8 @@ import { OneMessageComponent } from './components/one-message/one-message.compon
     ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
-    ScrollingModule
+    ScrollingModule,
+    FormsModule
   ]
 })
 export class UserModule { }

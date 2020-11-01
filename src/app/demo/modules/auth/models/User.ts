@@ -2,7 +2,7 @@ import {Cart} from '../../content/model/cart';
 import {Message, Messages} from '../../user/models/Message';
 
 export interface User {
-  userId: number;
+  id: number;
   userName: string;
   userLastName: string;
   userNickName: string;

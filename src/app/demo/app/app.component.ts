@@ -11,10 +11,8 @@ export class AppComponent /*implements OnInit*/{
   changeTheme() {
     this.day = !this.day;
   }
-
   //TODO userGet message
   // user send message to Support
   // promotion when buying 3 items
   //
-
 }
