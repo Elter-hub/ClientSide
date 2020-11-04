@@ -79,13 +79,13 @@ export class ItemComponent implements OnInit {
     })
   }
 
-  delete() {
+  delete(item: Item) {
     this.changeItemService.deleteItem(item).subscribe(data =>
       this.item = data)
     this.visible =false;
   }
 
-  addQuantity() {
+  addQuantity(item: Item) {
     this.fill = true;
   }
 
