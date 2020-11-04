@@ -3,7 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {User} from '../../models/UserModel';
+import {User} from '../../models/User';
 import {UserService} from '../../../user/services/user.service';
 
 @Component({
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['user']).then(() => window.location.reload());
         }, 1000);
+        console.log(data);
       },
       error => {
         console.log(error);

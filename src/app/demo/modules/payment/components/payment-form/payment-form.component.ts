@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder,  FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {UserService} from '../../../user/services/user.service';
-import {User} from '../../../auth/models/UserModel';
+import {User} from '../../../auth/models/User';
 import {Item} from '../../../content/model/item';
 
 @Component({

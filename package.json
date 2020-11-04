@@ -26,8 +26,12 @@
     "@stripe/stripe-js": "^1.10.0",
     "angularx-social-login": "^3.2.2",
     "jwt-decode": "^3.0.0",
+    "net": "^1.0.2",
     "ngx-stripe": "^10.1.2",
     "rxjs": "~6.6.0",
+    "socket.io": "^2.3.0",
+    "sockjs-client": "^1.5.0",
+    "stompjs": "^2.3.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

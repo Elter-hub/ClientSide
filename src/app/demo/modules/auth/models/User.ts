@@ -1,8 +1,8 @@
-import {Item} from '../../content/model/item';
 import {Cart} from '../../content/model/cart';
+import {Message, Messages} from '../../user/models/Message';
 
 export interface User {
-  userId: number;
+  id: number;
   userName: string;
   userLastName: string;
   userNickName: string;
@@ -12,4 +12,5 @@ export interface User {
   imageUrl: string;
   cart: Cart;
   roles: string[];
+  messages: Messages;
 }

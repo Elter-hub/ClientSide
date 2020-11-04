@@ -9,6 +9,8 @@
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/user">User</a>
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/content">Content</a>
       <a mat-list-item *ngIf="showAdminBoard" routerLink="/content/add-item">Add Content</a>
+      <a mat-list-item *ngIf="isLoggedIn" routerLink="user/messages">User Messages</a>
+      <a mat-list-item *ngIf="isLoggedIn" routerLink="user/chat">Chat</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="backGround">
@@ -23,6 +25,7 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         ClientSide
+        <button mat-stroked-button (click)="openDialog()" >Help</button>
       </mat-toolbar>
       <mat-toolbar color="primary" class="moveToRight">
         <mat-nav-list *ngIf="!isLoggedIn">
@@ -42,6 +45,6 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<app-footer class="mapa"></app-footer>
+<!--<app-footer class="mapa"></app-footer>-->
 
 
