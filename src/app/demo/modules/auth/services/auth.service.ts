@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHandler, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient,  HttpHeaders,  } from '@angular/common/http';
+import { Observable, throwError} from 'rxjs';
+import { Router} from '@angular/router';
 import {TokenStorageService} from './token-storage.service';
-import jwt_decode from 'jwt-decode';
-import {catchError, switchMap, tap} from 'rxjs/operators';
+import jwt_decode  from 'jwt-decode';
+import {catchError, tap} from 'rxjs/operators';
 import {Tokens} from '../models/Tokens';
 
 const AUTH_API = 'http://localhost:8082/api/';

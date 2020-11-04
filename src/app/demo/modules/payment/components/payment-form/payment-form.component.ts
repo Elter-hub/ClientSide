@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {log} from 'util';
+import {FormBuilder,  FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {UserService} from '../../../user/services/user.service';
 import {User} from '../../../auth/models/UserModel';
@@ -76,8 +75,4 @@ export class PaymentFormComponent implements OnInit {
   get cardCvc() {
     return this.cardForm.get('cardCvc')
   }
-
-
-
-
 }

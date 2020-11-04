@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {UserActionService} from '../../services/user-action.service';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {map, shareReplay, take, tap} from 'rxjs/operators';
+import {map, shareReplay } from 'rxjs/operators';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../user/services/user.service';
-import {log} from 'util';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,6 @@ export class HomeComponent implements OnInit {
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
-  showModeratorBoard = false;
   userName: string;
   content: string;
 

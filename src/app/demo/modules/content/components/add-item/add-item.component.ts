@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GetItemService} from '../../services/get-item.service';
-import {log} from 'util';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -30,12 +29,11 @@ export class AddItemComponent implements OnInit {
 
   onSubmit(form: any) {
     console.log(form);
-    this.getItemService.postItem(form).subscribe(data => {
+    this.getItemService.postItem(form).subscribe(() => {
       this.openSnackBar(this.itemName.value, 'Successfully added!');
       this.addItemForm.reset();
     },
       error => console.log(error))
-
     return false;
   }
 

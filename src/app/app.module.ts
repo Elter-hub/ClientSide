@@ -35,9 +35,8 @@ import {BoardUserComponent} from './demo/modules/user/components/board-user/boar
 import {ProfileComponent} from './demo/modules/user/components/profile/profile.component';
 import { CartComponent } from './demo/modules/user/components/cart/cart.component';
 import {PaymentFormComponent} from './demo/modules/payment/components/payment-form/payment-form.component';
-import { FooterComponent } from './demo/modules/auth/components/footer/footer.component';
 import {AgmCoreModule} from '@agm/core';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -56,7 +55,6 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     DialogConfirmEmailComponent,
     UserChangePasswordConfirmationComponent,
     CartComponent,
-    FooterComponent,
   ],
   imports: [
     BrowserModule,

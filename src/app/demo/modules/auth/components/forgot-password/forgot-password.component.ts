@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder , FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
-import {log} from 'util';
-import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -31,7 +29,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(value: any) {
     this.showSpinner = true;
-    this.authService.forgotPassword(value.userEmail).subscribe(data => {
+    this.authService.forgotPassword(value.userEmail).subscribe(() => {
       this.showSpinner = false;
       this.openDialog();
       },
@@ -50,11 +48,8 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogConfirmEmailComponent, {
-      // height: '400px',
-      // width: '600px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(DialogConfirmEmailComponent );
+    dialogRef.afterClosed().subscribe(() => {
       console.log(`Dialog result: Dialog is closed and redirect to home page`);
     });
   }
@@ -62,5 +57,4 @@ export class ForgotPasswordComponent implements OnInit {
   get userEmail() {
     return this.emailForm.get('userEmail');
   }
-
 }

@@ -25,6 +25,6 @@ export class UserChangePasswordConfirmationComponent implements OnInit {
     this.userService.userConfirmPasswordChanges(this.email, this.emailConfirmationToken)
       .subscribe(data => console.log(data));
 
-    setTimeout(() => this.router.navigate(['login']), 3000)
+    setTimeout(() => this.router.navigate(['login']), 1000)
   }
 }

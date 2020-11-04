@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {DialogConfirmEmailComponent} from '../../../shared/dialog-confirm-email/dialog-confirm-email.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -61,7 +61,7 @@ export class BoardUserComponent implements OnInit {
     this.userActionService.userChangePassword(this.user.userEmail,
                                         this.form.value.userOldPassword,
                                         this.form.value.userNewPassword)
-      .subscribe(data => {
+      .subscribe(() => {
           this.showSpinner = false;
           this.showWarn = false;
           this.showConfirmation = true;
@@ -86,7 +86,7 @@ export class BoardUserComponent implements OnInit {
   }
 
   changeImgUrl(form: HTMLFormElement, userEmail: string) {
-    this.userActionService.changeImageUrl(form.url, userEmail).subscribe(data =>{
+    this.userActionService.changeImageUrl(form.url, userEmail).subscribe(() =>{
       this.user.imageUrl = form.url
       this.token.saveUser(this.user);
     });
@@ -94,7 +94,7 @@ export class BoardUserComponent implements OnInit {
 
   confirmPasswordChanges() {
     this.userActionService.userConfirmPasswordChanges(this.user.userEmail, this.formConfirm.value.confirm)
-      .subscribe(data => {
+      .subscribe(() => {
         this.showSuccess = true
         this.formConfirm.reset();
         this.form.reset();
@@ -103,11 +103,6 @@ export class BoardUserComponent implements OnInit {
           console.log(error1);
         }
     )
-  }
-
-  showCart() {
-    this.user = this.token.getUser();
-    console.log(this.user.cart);
   }
 
   get userOldPassword() {
@@ -133,5 +128,4 @@ export class BoardUserComponent implements OnInit {
   public get confirmChanges() {
     return this.formConfirm.get('confirm')
   }
-
 }

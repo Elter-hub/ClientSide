@@ -27,7 +27,6 @@ export class CartComponent implements OnInit {
               private dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    console.log("🥰");
     this.userService.currentUser.subscribe(user => {
       this.user = user;
       this.items = this.user.cart.items;
@@ -96,7 +95,7 @@ export class CartComponent implements OnInit {
               quantities: this.user.cart.quantities
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.success = true;
       setTimeout(() => this.router.navigate(['content']).then(window.location.reload), 2000)
     });

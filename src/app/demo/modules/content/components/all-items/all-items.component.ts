@@ -49,10 +49,8 @@ export class AllItemsComponent implements OnInit {
       this.highValue =  this.highValue - this.pageSize;
     }
     this.pageIndex = event.pageIndex;
-
     return event
   }
-
 
   byLowestPrice() {
     this.filtered.sort((item1, item2) => {
@@ -93,6 +91,5 @@ export class AllItemsComponent implements OnInit {
     this.filtered = this.filtered.filter(
       item => item.itemName.toLowerCase().includes(value.toLowerCase())
     )
-    // this.getPaginatorData(null);
   }
 }

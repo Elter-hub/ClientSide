@@ -7,8 +7,8 @@
         <mat-select [value]="'promote'" class="optionButton">
           <mat-option (click)="promote(item)">Promote</mat-option>
           <mat-option (click)="cancelPromotion(item)">Cancel promotion</mat-option>
-          <mat-option (click)="delete(item)">Delete Item</mat-option>
-          <mat-option (click)="addQuantity(item)">Add Quantity</mat-option>
+          <mat-option (click)="delete()">Delete Item</mat-option>
+          <mat-option (click)="addQuantity()">Add Quantity</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -60,5 +60,4 @@
     <button mat-button color="primary" [disabled]="item.quantity <= 0" (click)="addToCart(item)">Add to cart</button>
   </mat-card-actions>
   <p *ngIf="inCart" class="alert-success">Item in cart!</p>
-
 </mat-card>

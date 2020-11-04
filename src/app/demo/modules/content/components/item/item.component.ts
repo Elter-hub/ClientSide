@@ -1,13 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from '../../model/item';
-import {TokenStorageService} from '../../../auth/services/token-storage.service';
 import {User} from '../../../auth/models/UserModel';
-import {AddItemToCartService} from '../../services/add-item-to-cart.service';
-import {Cart} from '../../model/cart';
 import {UserService} from '../../../user/services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ChangeItemService} from '../../services/change-item.service';
-import {log} from 'util';
+import {ChangeItemService} from '../../services/changeItem.service';
 
 @Component({
   selector: 'app-item',
@@ -44,8 +40,6 @@ export class ItemComponent implements OnInit {
   }
 
   addToCart(item: Item) {
-    console.log(this.user.roles);
-    console.log(item);
     this.inCart = true;
     if (this.user.cart.items.includes(item)){
       this.user.cart.quantities[this.user.cart.items.indexOf(item)]++
@@ -69,7 +63,6 @@ export class ItemComponent implements OnInit {
     return this.newPriceForm.get('newPrice');
   }
 
-
   changePrice(item: Item, newPrice: number) {
     this.changeItemService.promote(item, newPrice).subscribe(data => {
       this.item.discount = data.discount
@@ -86,13 +79,13 @@ export class ItemComponent implements OnInit {
     })
   }
 
-  delete(item: Item) {
+  delete() {
     this.changeItemService.deleteItem(item).subscribe(data =>
       this.item = data)
     this.visible =false;
   }
 
-  addQuantity(item: Item) {
+  addQuantity() {
     this.fill = true;
   }
 
