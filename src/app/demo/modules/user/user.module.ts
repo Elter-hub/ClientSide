@@ -10,11 +10,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {WebSocketComponent} from './components/web-socket/web-socket.component';
 
 
 @NgModule({
-  declarations: [SendMessageFormComponent,  WebSocketComponent],
+  declarations: [SendMessageFormComponent],
   exports: [
   ],
   imports: [

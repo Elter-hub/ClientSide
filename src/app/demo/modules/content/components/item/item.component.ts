@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from '../../model/item';
-import {User} from '../../../auth/models/UserModel';
 import {UserService} from '../../../user/services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChangeItemService} from '../../services/changeItem.service';
+import {User} from '../../../auth/models/User';
 
 @Component({
   selector: 'app-item',
