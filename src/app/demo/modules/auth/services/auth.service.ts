@@ -7,7 +7,7 @@ import jwt_decode  from 'jwt-decode';
 import {catchError, tap} from 'rxjs/operators';
 import {Tokens} from '../models/Tokens';
 
-const AUTH_API = 'http://localhost:8082/api/';
+const AUTH_API = 'http://localhost:3000/api/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
