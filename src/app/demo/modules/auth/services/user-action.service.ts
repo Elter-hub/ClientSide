@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Message, Messages} from '../../user/models/Message';
 
-const API_URL = 'http://localhost:8082/';
+const API_URL = 'http://localhost:5000/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -16,16 +16,18 @@ export class UserActionService {
   constructor(private http: HttpClient) { }
 
   changeImageUrl(imageUrl: string, userEmail: string){
-    return this.http.put(API_URL + "user/change-image", {
-      imageUrl: imageUrl,
-      userEmail: userEmail
-    }, httpOptions)
+    console.log(imageUrl);
+    console.log(userEmail);
+    return this.http.patch(API_URL + "user/changeImage", {
+      newImageUrl: imageUrl,
+      email: userEmail
+    })
   }
 
   //Cause it should also validate old password
   userChangePassword(userEmail: string, oldPassword: string, newPassword: string) {
-    return this.http.post('http://localhost:8082/user/change-password' , {
-      userEmail: userEmail,
+    return this.http.patch(API_URL + 'user/changePassword' , {
+      email: userEmail,
       oldPassword: oldPassword,
       newPassword: newPassword
     }, httpOptions)

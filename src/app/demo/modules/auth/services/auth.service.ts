@@ -7,7 +7,7 @@ import jwt_decode  from 'jwt-decode';
 import {catchError, tap} from 'rxjs/operators';
 import {Tokens} from '../models/Tokens';
 
-const AUTH_API = 'http://localhost:3000/api/';
+const AUTH_API = 'http://localhost:5000/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +23,7 @@ export class AuthService {
               private tokenStorageService: TokenStorageService) { }
 
   login(form): Observable<any> {
-    return this.http.post(AUTH_API + 'auth/signin', {
+    return this.http.post(AUTH_API + 'auth/login', {
       email: form.userEmail,
       password: form.userPassword
     }, httpOptions);
@@ -31,13 +31,9 @@ export class AuthService {
 
   register(form): Observable<any> {
     return this.http.post(AUTH_API + 'auth/signup', {
-      userName: form.value.userName,
+      username: form.value.username,
       email: form.value.userEmail,
       password: form.value.matcher.userPassword,
-      age: form.value.userAge,
-      userLastName: form.value.userLastName,
-      userNickName: form.value.userNickName,
-      sex: form.value.userSex
     }, httpOptions);
   }
 

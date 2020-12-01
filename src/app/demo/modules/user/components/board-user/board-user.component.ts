@@ -28,7 +28,7 @@ export class BoardUserComponent implements OnInit {
   error: string;
   showSuccess = false;
 
-  constructor(private token: TokenStorageService,
+  constructor(private tokenStorageService: TokenStorageService,
               private authService: AuthService,
               private userActionService: UserActionService,
               private userService: UserService,
@@ -37,7 +37,7 @@ export class BoardUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.token.getUser();
+    this.user = this.tokenStorageService.getUser();
 
     this.form = this.formBuilder.group({
       userOldPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
@@ -58,7 +58,7 @@ export class BoardUserComponent implements OnInit {
 
   onSubmit() {
     this.showSpinner = true;
-    this.userActionService.userChangePassword(this.user.userEmail,
+    this.userActionService.userChangePassword(this.user.email,
                                         this.form.value.userOldPassword,
                                         this.form.value.userNewPassword)
       .subscribe(() => {
@@ -86,14 +86,15 @@ export class BoardUserComponent implements OnInit {
   }
 
   changeImgUrl(form: HTMLFormElement, userEmail: string) {
+    console.log(userEmail);
     this.userActionService.changeImageUrl(form.url, userEmail).subscribe(() =>{
       this.user.imageUrl = form.url
-      this.token.saveUser(this.user);
-    });
+      this.tokenStorageService.saveUser(this.user);
+    }, error1 => console.log(error1));
   }
 
   confirmPasswordChanges() {
-    this.userActionService.userConfirmPasswordChanges(this.user.userEmail, this.formConfirm.value.confirm)
+    this.userActionService.userConfirmPasswordChanges(this.user.email, this.formConfirm.value.confirm)
       .subscribe(() => {
         this.showSuccess = true
         this.formConfirm.reset();

@@ -28,7 +28,7 @@
     <img [src]="user.imageUrl" alt="avatar"
          style="cursor: pointer" (click)="changeImg()">
     <mat-card-content><br>Age: {{user.userAge}} <br>
-      Email 📧: {{user.userEmail}} <br>
+      Email 📧: {{user.email}} <br>
       NickName: {{user.userNickName}}</mat-card-content>
 
   </mat-card>
@@ -100,7 +100,7 @@
           class="example-form secondColumn"
           [formGroup]="changeImageUrlForm"
           #form="ngForm"
-          (ngSubmit)="changeImgUrl(form.form.value, user.userEmail)"
+          (ngSubmit)="changeImgUrl(form.form.value, user.email)"
     >
       <mat-label>Change Image</mat-label>
       <mat-form-field class="example-full-width">

@@ -2,11 +2,11 @@ import {Cart} from '../../content/model/cart';
 import {Message, Messages} from '../../user/models/Message';
 
 export interface User {
-  id: number;
+  _id: number;
   userName: string;
   userLastName: string;
   userNickName: string;
-  userEmail: string;
+  email: string;
   userAge: number;
   userSex: string;
   imageUrl: string;

@@ -90,7 +90,7 @@ export class CartComponent implements OnInit {
     });
       const dialogRef = this.dialog.open(PaymentFormComponent, {
       data: { amount: this.sum,
-              email: this.user.userEmail,
+              email: this.user.email,
               items: this.user.cart.items,
               quantities: this.user.cart.quantities
       }

@@ -15,26 +15,13 @@
         <mat-form-field>
           <mat-label for="username">Name</mat-label>
           <input matInput
-                 [formControl]="userName"
+                 [formControl]="username"
                  name="username">
-          <mat-error *ngIf="userName.errors?.required">Field is required'</mat-error>
-          <mat-error *ngIf="userName.errors?.pattern">Only letters allowed</mat-error>
+          <mat-error *ngIf="username.errors?.required">Field is required'</mat-error>
+          <mat-error *ngIf="username.errors?.pattern">Only letters allowed</mat-error>
         </mat-form-field>
-        <mat-form-field>
-          <mat-label for="username">Lastname</mat-label>
-          <input matInput
-                 [formControl]="userLastName"
-                 name="username">
-          <mat-error *ngIf="userLastName.errors?.required">Field is required'</mat-error>
-          <mat-error *ngIf="userLastName.errors?.pattern">Only letters allowed</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label for="username">Nickname</mat-label>
-          <input matInput
-                 [formControl]="userNickName"
-                 name="username">
-          <mat-error *ngIf="userNickName.errors?.required">Field is required'</mat-error>
-        </mat-form-field>
+
+
         <mat-form-field>
           <mat-label for="username">Email</mat-label>
           <input matInput
@@ -71,23 +58,6 @@
           </button>
           <mat-error *ngIf="userConfirmPassword.errors?.confirmedValidator">Password and Confirm Password must match.
           </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label for="username">Age</mat-label>
-          <input matInput
-                 type="number"
-                 [formControl]="userAge"
-                 name="username">
-          <mat-error *ngIf="userAge.errors?.required">Field is required'</mat-error>
-          <mat-error *ngIf="userAge.errors?.min">Not for kids</mat-error>
-        </mat-form-field >
-        <mat-form-field>
-          <mat-label>Gender</mat-label>
-          <mat-select [formControl]="userSex" [(value)]="selected">
-            <mat-option value="Male">Male</mat-option>
-            <mat-option value="Female">Female</mat-option>
-          </mat-select>
-          <mat-error *ngIf="userAge.errors?.required">Field is required'</mat-error>
         </mat-form-field>
         <button mat-raised-button color="primary" [disabled]="!f.form.valid">Sign Up</button>
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
