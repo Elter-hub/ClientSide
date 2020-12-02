@@ -114,34 +114,6 @@
       </mat-form-field>
       <button mat-raised-button type="submit" color="primary" [disabled]="!form.valid">Change</button>
     </form>
-
-    <div *ngIf="showConfirmation">
-
-      <form
-        [formGroup]="formConfirm"
-        name="registrationForm"
-        (ngSubmit)="confirmPasswordChanges()"
-        #conf="ngForm"
-        novalidate>
-        <mat-form-field>
-          <mat-label for="password">Enter confirmation token</mat-label>
-          <input matInput
-                 [type]="hide ? 'password' : 'text'"
-                 [formControl]="confirmChanges"
-                 name="password">
-          <button mat-icon-button type="button" matSuffix (click)="hide = !hide"
-                  [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-error *ngIf="userOldPassword.errors?.required">Field is required'</mat-error>
-          <mat-error *ngIf="userOldPassword.errors?.pattern">At least one capital, one small and one digit should be
-            present
-          </mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Apply changes</button>
-      </form>
-    </div>
     <br>
     <h2 *ngIf="showSuccess" class="bg-success"> Password was changed!</h2>
   </div>

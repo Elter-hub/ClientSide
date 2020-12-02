@@ -61,17 +61,16 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    console.log(AUTH_API + 'forgot-password');
-    return this.http.post(AUTH_API + 'forgot-password', {
-      emailForRecoveringPassword: email
+    return this.http.post(AUTH_API + 'auth/forgotPassword', {
+      email: email
     }, httpOptions)
   }
 
   changePassword(password: string, tokenForRecoveringPassword: string, emailForRecoveringPassword: string){
-    return this.http.post(AUTH_API + 'reset-password' , {
-      password: password,
-      tokenForRecoveringPassword: tokenForRecoveringPassword,
-      emailForRecoveringPassword: emailForRecoveringPassword
+    return this.http.post(AUTH_API + 'auth/resetPassword' , {
+      newPassword: password,
+      token: tokenForRecoveringPassword,
+      email: emailForRecoveringPassword
     }, httpOptions)
   }
 

@@ -29,7 +29,8 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(value: any) {
     this.showSpinner = true;
-    this.authService.forgotPassword(value.userEmail).subscribe(() => {
+    this.authService.forgotPassword(value.userEmail).subscribe(data => {
+        console.log(data);
       this.showSpinner = false;
       this.openDialog();
       },

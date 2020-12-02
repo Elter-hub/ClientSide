@@ -34,9 +34,9 @@ export class UserActionService {
   }
 
   userConfirmPasswordChanges(email: string, emailConfirmationToken: string){
-    return this.http.post('http://localhost:8082/user/confirm-password', {
-      emailForRecoveringPassword: email,
-      tokenForRecoveringPassword: emailConfirmationToken
+    return this.http.post(API_URL + 'auth/', {
+      email: email,
+      token: emailConfirmationToken
     }, httpOptions)
   }
 

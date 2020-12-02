@@ -8,6 +8,7 @@ import {TokenStorageService} from '../../../auth/services/token-storage.service'
 import {AuthService} from '../../../auth/services/auth.service';
 import {UserActionService} from '../../../auth/services/user-action.service';
 import {UserService} from '../../services/user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-board-user',
@@ -32,6 +33,7 @@ export class BoardUserComponent implements OnInit {
               private authService: AuthService,
               private userActionService: UserActionService,
               private userService: UserService,
+              private _snackBar: MatSnackBar,
               private dialog: MatDialog,
               private formBuilder: FormBuilder) {
   }
@@ -64,17 +66,20 @@ export class BoardUserComponent implements OnInit {
       .subscribe(() => {
           this.showSpinner = false;
           this.showWarn = false;
-          this.showConfirmation = true;
-          const dialogRef = this.dialog.open(DialogConfirmEmailComponent);
-          dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
-          });
+        this.openSnackBar('Password changed!', null)
         },
         error => {
           this.error = error.error.message;
           this.showWarn = true;
           this.showSpinner = false;
+          this.openSnackBar('Failure!', null)
         });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   showOptions() {
