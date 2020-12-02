@@ -25,11 +25,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)]],
-      userEmail: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]], // \. \\.?? TODO
+      username: ['JOhny', [Validators.required, Validators.pattern('[a-zA-Z]+'), Validators.minLength(3)]],
+      userEmail: ['ihor04@gmail.com', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]], // \. \\.?? TODO
       matcher: this.formBuilder.group({
-        userPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
-        userConfirmPassword: ['', ]
+        userPassword: ['Superuser123', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
+        userConfirmPassword: ['Superuser123', ]
       }, {
         validator: ConfirmedValidator('userPassword', 'userConfirmPassword')
       }),

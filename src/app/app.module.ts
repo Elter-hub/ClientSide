@@ -37,6 +37,7 @@ import { CartComponent } from './demo/modules/user/components/cart/cart.componen
 import {PaymentFormComponent} from './demo/modules/payment/components/payment-form/payment-form.component';
 import {AgmCoreModule} from '@agm/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ConfirYourEmailComponent } from './demo/modules/auth/components/confir-your-email/confir-your-email.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     DialogConfirmEmailComponent,
     UserChangePasswordConfirmationComponent,
     CartComponent,
+    ConfirYourEmailComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../models/User';
 import {UserService} from '../../../user/services/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirYourEmailComponent} from '../confir-your-email/confir-your-email.component';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
               private authService: AuthService,
               private userService: UserService,
               private router: Router,
+              public dialog: MatDialog,
               private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
@@ -39,19 +42,24 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(
-      data => {
-        console.log(data);
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveRefreshToken(data.refreshToken)
-        localStorage.getItem('auth-user') ? this.userService.changeUser(data.user)
-                                              : this.tokenStorage.saveUser(data.user);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
+      userInfo => {
+        console.log(userInfo);
+        if (userInfo.user.isVerified) {
+          this.tokenStorage.saveToken(userInfo.accessToken);
+          this.tokenStorage.saveRefreshToken(userInfo.refreshToken)
+          localStorage.getItem('auth-user') ? this.userService.changeUser(userInfo.user)
+            : this.tokenStorage.saveUser(userInfo.user);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
 
-        setTimeout(() => {
-          this.router.navigate(['user']).then(() => window.location.reload());
-        }, 1000);
+          setTimeout(() => {
+            this.router.navigate(['user']).then(() => window.location.reload());
+          }, 1000);
+        }else {
+          this.dialog.open(ConfirYourEmailComponent)
+
+        }
       },
       error => {
         console.log(error);

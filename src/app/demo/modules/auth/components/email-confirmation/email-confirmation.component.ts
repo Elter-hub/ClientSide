@@ -17,12 +17,10 @@ export class EmailConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => this.emailConfirmationToken = params.token)
-    setTimeout(() => this.waitForDatabase().then(() => this.router.navigate([''])), 3000);
+    setTimeout(() => this.waitForDatabase().then(() => this.router.navigate(['login'])), 3000);
   }
 
   private async waitForDatabase() {
     await this.authService.confirmEmail(this.emailConfirmationToken).subscribe(x => console.log(x));
   }
-
-
 }
