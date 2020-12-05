@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../../auth/models/User';
 import {Cart} from '../../../content/model/cart';
 import {Item} from '../../../content/model/item';
 import {UserService} from '../../services/user.service';
-import {AddItemToCartService} from '../../../content/services/add-item-to-cart.service';
+import {BuyItemsService} from '../../../content/services/buyItems.service';
 import {MatDialog} from '@angular/material/dialog';
 import {PaymentFormComponent} from '../../../payment/components/payment-form/payment-form.component';
 import {Router} from '@angular/router';
+import {CartManipulationsService} from '../../../content/services/cart-manipulations.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,65 +23,57 @@ export class CartComponent implements OnInit {
   success = false;
 
   constructor(private userService: UserService,
-              private addItemToCart: AddItemToCartService,
+              private addItemToCart: BuyItemsService,
+              private cartService: CartManipulationsService,
               private router: Router,
-              private dialog: MatDialog,) { }
+              private dialog: MatDialog,) {
+  }
 
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user => {
       this.user = user;
-      this.items = this.user.cart.items;
+      this.items = this.user.cart.products;
       this.cart = this.user.cart;
-      this.quantities = this.user.cart.quantities;
-    });
+      this.sum = 0;
 
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].discount > 0){
-        this.sum += this.items[i].newPrice * this.quantities[i];
-      }else {
-        this.sum += this.items[i].price * this.quantities[i];
-      }
-    }
-    this.userService.changeUser(this.user);
-  }
-
-  removeFromCart(itemId: number) {
-    this.user.cart.items = this.user.cart.items.filter(item => item.itemId != itemId)
-    for (let i = 0; i < this.user.cart.items.length; i++){
-      if (this.user.cart.items[i].itemId == itemId){
-        if (this.user.cart.items[i].discount > 0){
-          this.sum -= this.items[i].newPrice * this.quantities[i];
-        }else {
-          this.sum -= this.items[i].price * this.quantities[i];
+      this.user.cart.products.forEach(item => {
+        if (item.discount > 0) {
+          this.sum += item.count * item.newPrice;
+        } else {
+          this.sum += item.count * item.price;
         }
+      });
+    });
+    this.userService.changeUser(this.user);
+  }
+
+  removeFromCart(item: Item) {
+    this.cartService.removeFromCart(this.user.email, item._id, item.count, item.price)
+      .subscribe(() => {
+          this.user.cart.products = this.user.cart.products.filter(item1 => item1._id != item._id)
+          this.userService.changeUser(this.user);
+        },
+       error => console.log(error));
+  }
+
+  decrease(item: Item) {
+    console.log(item._id);
+    this.user.cart.products.filter(item1 => item1._id == item._id).map(item2 => {
+      item2.count--;
+      if (item2.count === 0) {
+        this.removeFromCart(item);
       }
-    }
-    this.quantities = this.user.cart.quantities;
+    });
     this.userService.changeUser(this.user);
   }
 
-  decrease(index: number) {
-    this.user.cart.quantities[index]--;
-    if (this.user.cart.quantities[index] === 0){
-      this.removeFromCart(this.user.cart.items[index].itemId)
-    }
-    this.quantities = this.user.cart.quantities;
-    if (this.user.cart.items[index].discount > 0){
-      this.sum -= this.user.cart.items[index].newPrice;
-    }else {
-      this.sum -= this.user.cart.items[index].price;
-    }
-    this.userService.changeUser(this.user);
-  }
-
-  increase(index: number) {
-    this.user.cart.quantities[index]++;
-    this.quantities = this.user.cart.quantities;
-    if (this.user.cart.items[index].discount > 0) {
-      this.sum += this.user.cart.items[index].newPrice;
-    }else {
-      this.sum += this.user.cart.items[index].price;
-    }
+  increase(item: Item) {
+    this.cartService.addToCart(this.user.email, item._id, item.count + 1, item.price).subscribe(data => {
+      console.log(data);
+    }, error => console.log(error));
+    this.user.cart.products.filter(item1 => item1._id == item._id).map(item => {
+      item.count++;
+    });
     this.userService.changeUser(this.user);
   }
 
@@ -88,16 +81,16 @@ export class CartComponent implements OnInit {
     this.userService.currentUser.subscribe(user => {
       this.user = user;
     });
-      const dialogRef = this.dialog.open(PaymentFormComponent, {
-      data: { amount: this.sum,
-              email: this.user.email,
-              items: this.user.cart.items,
-              quantities: this.user.cart.quantities
+    const dialogRef = this.dialog.open(PaymentFormComponent, {
+      data: {
+        amount: this.sum,
+        email: this.user.email,
+        items: this.user.cart.products,
       }
     });
     dialogRef.afterClosed().subscribe(() => {
       this.success = true;
-      setTimeout(() => this.router.navigate(['content']).then(window.location.reload), 2000)
+      setTimeout(() => this.router.navigate(['content']).then(window.location.reload), 2000);
     });
   }
 }

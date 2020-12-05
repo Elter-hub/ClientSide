@@ -38,11 +38,12 @@ export class AuthService {
   }
 
   refreshToken(){
-    return this.http.post(AUTH_API + 'auth/refresh-token', {
-      userEmail: this.tokenStorageService.getUser().userEmail,
+    return this.http.post(AUTH_API + 'auth/refreshTokens', {
+      email: this.tokenStorageService.getUser().userEmail,
       refreshToken: this.tokenStorageService.getRefreshToken(),
       accessToken: this.tokenStorageService.getToken()
     }).pipe(tap((tokens: Tokens) => {
+      console.log(tokens);
       this.tokenStorageService.saveToken(tokens.accessToken);
       this.tokenStorageService.saveRefreshToken(tokens.refreshToken);
     }), catchError(error => {

@@ -56,8 +56,7 @@ export class PaymentFormComponent implements OnInit {
         console.log(resp);
         console.log(items);
         this.userService.currentUser.subscribe(user => this.user = user);
-        this.user.cart.items = [];
-        this.user.cart.quantities = [];
+        this.user.cart.products = [];
         this.userService.changeUser(this.user)
       },error => console.log(error))
   }

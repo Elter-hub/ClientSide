@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Cart} from '../model/cart';
 
-const CART_API = 'http://localhost:8082/cart/';
+const CART_API = 'http://localhost:5000/cart/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,7 +12,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AddItemToCartService {
+export class BuyItemsService {
 
   constructor(private httpClient: HttpClient) { }
 

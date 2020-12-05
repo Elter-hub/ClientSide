@@ -4,6 +4,7 @@ import {ConfirmedValidator} from '../../../../app/helpers/confirmed.validator';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../auth/services/auth.service';
 import {TokenStorageService} from '../../../auth/services/token-storage.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-change-password',
@@ -17,7 +18,8 @@ export class ChangePasswordComponent implements OnInit {
   emailForRecoveringPassword: string;
   dialogVisibility = false;
   showSuccess = false;
-
+  message: string;
+  showMessage: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -36,7 +38,7 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.passwordForm = this.formBuilder.group({
-      userPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
+      userPassword: ['', [Validators.required, /*Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')*/]],
       userConfirmNewPassword: ['',]
     }, {
       validator: ConfirmedValidator('userPassword', 'userConfirmNewPassword')
@@ -52,6 +54,12 @@ export class ChangePasswordComponent implements OnInit {
       .subscribe(x => {
         this.showSuccess = true;
         setTimeout(() => this.router.navigate(['login']), 2000)
+      }, error => {
+        this.showMessage = true;
+        this.message = error.error.message
+        setTimeout(() => {
+          this.showMessage = false
+        }, 2000)
       });
   }
 

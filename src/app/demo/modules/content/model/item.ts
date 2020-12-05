@@ -1,12 +1,14 @@
 export interface Item {
   itemId: number;
   price: number;
-  itemName: string;
+  label: string;
   type: string;
-  itemImageUrl: string;
+  productImageUrl: string;
   description: string;
   stars: number;
   quantity: number;
   discount?: number;
   newPrice?: number;
+  _id: string,
+  count: number,
 }

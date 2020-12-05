@@ -1,26 +1,26 @@
 <div class="wrapper">
   <mat-card class="example-card" *ngFor="let item of items ; let i = index">
     <mat-card-header>
-      <mat-card-title>{{item?.itemName}}</mat-card-title>
+      <mat-card-title>{{item?.label}}</mat-card-title>
       <mat-card-subtitle>{{item?.stars}}⭐</mat-card-subtitle>
       <mat-card-subtitle>
-        <button mat-icon-button color="warn" (click)="removeFromCart(item?.itemId)">
+        <button mat-icon-button color="warn" (click)="removeFromCart(item)">
           <mat-icon>clear</mat-icon>
         </button>
       </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="item?.itemImageUrl" alt="Photo of a product ">
+    <img mat-card-image [src]="item?.productImageUrl" alt="Photo of a product ">
     <mat-card-content>
       {{item.description | slice: 0:20}}...
       <div *ngIf="!item.discount">{{item?.price | currency:'UAH':'symbol-narrow'}}</div>
       <div *ngIf="item.discount">{{item?.newPrice | currency:'UAH':'symbol-narrow'}}</div>
+      <p>{{item.count}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-icon-button (click)="decrease(i)">
+      <button mat-icon-button (click)="decrease(item)">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <mat-label>{{quantities[i]}} pieces</mat-label>
-      <button mat-icon-button (click)="increase(i)">
+      <button mat-icon-button (click)="increase(item)">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </mat-card-actions>
@@ -28,7 +28,7 @@
 </div>
 <div *ngIf="items.length > 0">
   <div class="justify-content-center">
-    <h3 class="sum">Total sum: {{sum}}</h3>
+    <strong><h2 class="sum">Total sum: {{sum | currency: 'USD'}}</h2></strong>
     <br>
   </div>
   <div class="justify-content-center">

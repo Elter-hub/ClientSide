@@ -1,6 +1,10 @@
 import {Item} from './item';
 
 export interface Cart {
-  items: Item[];
-  quantities: number[];
+  products: Item[]
+  sum: number;
+  userId: string
 }
+
+
+

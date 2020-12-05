@@ -1,6 +1,6 @@
 <mat-card *ngIf="visible" class="example-card" [ngClass]="item.quantity <= 0 ? 'soldOut' : 'available'">
   <mat-card-header>
-    <mat-card-title>{{item.itemName}}</mat-card-title>
+    <mat-card-title>{{item.label}}</mat-card-title>
     <div class="promotion" *ngIf="admin">
       <mat-form-field>
         <mat-label class="width">Options</mat-label>
@@ -13,7 +13,7 @@
       </mat-form-field>
     </div>
   </mat-card-header>
-  <img mat-card-image [src]="item.itemImageUrl" alt="Photo of a ">
+  <img mat-card-image [src]="item.productImageUrl" alt="Photo of a ">
   <mat-card-content>
     <p>
       {{item.description}}

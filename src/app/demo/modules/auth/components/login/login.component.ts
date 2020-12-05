@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      userEmail: ['', [Validators.required, Validators.minLength(3)]],
-      userPassword: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
+      userEmail: ['ihor04@gmail.com', [Validators.required, Validators.minLength(3)]],
+      userPassword: ['Superuser123', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')]],
     });
 
     if (this.tokenStorage.getToken()) {
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       userInfo => {
         console.log(userInfo);
-        if (userInfo.user.isVerified) {
+
           this.tokenStorage.saveToken(userInfo.accessToken);
           this.tokenStorage.saveRefreshToken(userInfo.refreshToken)
           localStorage.getItem('auth-user') ? this.userService.changeUser(userInfo.user)
@@ -56,13 +56,14 @@ export class LoginComponent implements OnInit {
           setTimeout(() => {
             this.router.navigate(['user']).then(() => window.location.reload());
           }, 1000);
-        }else {
-          this.dialog.open(ConfirYourEmailComponent)
-
-        }
       },
       error => {
         console.log(error);
+        if(error.status === 405) {
+          this.dialog.open(ConfirYourEmailComponent, {
+            data: error.error.message
+          })
+        }
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }

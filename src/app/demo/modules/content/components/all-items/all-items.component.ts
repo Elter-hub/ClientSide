@@ -23,6 +23,7 @@ export class AllItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItemService.getAllItems().subscribe(data => {
+      console.log(data);
       this.filtered = data;
       this.allItems = data
     }, error => {
@@ -89,7 +90,7 @@ export class AllItemsComponent implements OnInit {
       this.filter = false;
     }
     this.filtered = this.filtered.filter(
-      item => item.itemName.toLowerCase().includes(value.toLowerCase())
+      item => item.label.toLowerCase().includes(value.toLowerCase())
     )
   }
 }

@@ -6,6 +6,7 @@ export interface User {
   userName: string;
   userLastName: string;
   userNickName: string;
+  isVerified: boolean;
   email: string;
   userAge: number;
   userSex: string;

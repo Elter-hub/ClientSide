@@ -22,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailForm = this.formBuilder.group({
-        userEmail: ['', [Validators.required]], //TODO fix regex
+        userEmail: ['', [Validators.required]],
       }
     );
   }

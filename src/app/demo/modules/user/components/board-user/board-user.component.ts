@@ -50,7 +50,7 @@ export class BoardUserComponent implements OnInit {
     });
 
     this.changeImageUrlForm = this.formBuilder.group({
-      url: ['', [Validators.required, Validators.pattern('^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$')]]
+      url: ['', [Validators.required, /*Validators.pattern('^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$')*/]]
     })
 
     this.formConfirm = this.formBuilder.group({
@@ -133,5 +133,9 @@ export class BoardUserComponent implements OnInit {
 
   public get confirmChanges() {
     return this.formConfirm.get('confirm')
+  }
+
+  refreshTokens() {
+    this.authService.refreshToken().subscribe(data => console.log(data), error1 => console.log(error1))
   }
 }

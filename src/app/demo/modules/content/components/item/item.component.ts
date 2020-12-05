@@ -4,6 +4,7 @@ import {UserService} from '../../../user/services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChangeItemService} from '../../services/changeItem.service';
 import {User} from '../../../auth/models/User';
+import {CartManipulationsService} from '../../services/cart-manipulations.service';
 
 @Component({
   selector: 'app-item',
@@ -24,10 +25,13 @@ export class ItemComponent implements OnInit {
   inCart = false;
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
+              private cartService: CartManipulationsService,
               private changeItemService: ChangeItemService) { }
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(user => this.user  = user)
+    this.userService.currentUser.subscribe(user => {
+      this.user  = user
+    })
     this.user.roles.includes("ROLE_ADMIN") ? this.admin = true : this.admin = false;
 
     this.newPriceForm = this.formBuilder.group({
@@ -41,14 +45,20 @@ export class ItemComponent implements OnInit {
 
   addToCart(item: Item) {
     this.inCart = true;
-    if (this.user.cart.items.includes(item)){
-      this.user.cart.quantities[this.user.cart.items.indexOf(item)]++
-      this.userService.changeUser(this.user);
-    }else {
-      this.user.cart.items.push(item);
-      this.user.cart.quantities.push(1);
-      this.userService.changeUser(this.user);
+    if (!item.count){
+      item.count = 0;
     }
+    this.cartService.addToCart(this.user.email, item._id, item.count+1, item.price ).subscribe(data => {
+      console.log(data);
+    }, error => console.log(error))
+    if (this.user.cart.products.find(item2 => item2._id === item._id)){
+      this.user.cart.products.find(item1 => item._id === item1._id).count++
+    }else {
+      item.count = 1;
+      this.user.cart.products.push(item);
+    }
+    this.userService.changeUser(this.user);
+
     setTimeout(() => {
       this.inCart = false
     }, 500)
