@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
               private addItemToCart: BuyItemsService,
               private cartService: CartManipulationsService,
               private router: Router,
-              private dialog: MatDialog,) {
+              public dialog: MatDialog,) {
   }
 
   ngOnInit(): void {
@@ -88,9 +88,12 @@ export class CartComponent implements OnInit {
         items: this.user.cart.products,
       }
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.success = true;
-      setTimeout(() => this.router.navigate(['content']).then(window.location.reload), 2000);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result) {
+        this.success = true;
+      }
+      setTimeout(() => this.router.navigate(['content']), 5000);
     });
   }
 }
